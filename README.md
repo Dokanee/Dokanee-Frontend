@@ -1,4 +1,12 @@
-# dd2
+# dokanee control panel
+
+
+## command lines code to change directory before the following:
+
+```
+cd dd2
+cd control panel
+```
 
 ## Project setup
 ```
