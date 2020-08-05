@@ -1,22 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/ControlPanel.vue'
-import Dashboard from '../components/DcpDashboard.vue'
-
+import Dashboard from '../components/routes/DcpDashboard.vue'
+import Products from '../components/routes/DcpProducts.vue'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Dashboard',
+    name: 'Control Panel',
     component: Home,
-    redirect :'/dashboard',
+    redirect :'/cpanel/dashboard',
     children: [
       {
-        path: '/dashboard',
+        path: '/cpanel/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+      },
+      {
+        path : '/cpanel/products',
+        component: Products
       }
     ]
   },
@@ -31,6 +35,7 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

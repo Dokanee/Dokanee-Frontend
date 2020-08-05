@@ -16,8 +16,17 @@ export default {
 }
 </script>
 <style>
+*{
+  font-family: sans-serif, Helvetica, Arial !important;
+}
 .dd-b-rounded{
     border: 0px solid transparent !important;
     border-radius: 1rem !important;
 }
+.grad-bg{
+ /* background: -webkit-linear-gradient(200deg,#4d9abf,#1aae88);
+  background: linear-gradient(200deg,#4d9abf,#1aae88);
+   background: -moz-linear-gradient(200deg,#4d9abf,#1aae88); */
+   background: #05a081;
+ }
 </style>

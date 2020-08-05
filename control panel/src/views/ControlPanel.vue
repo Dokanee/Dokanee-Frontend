@@ -1,10 +1,9 @@
 <template>
-<div id="app">
-    <v-app>
-        <dcp-nav></dcp-nav>
+<div id="app" >
+    <v-app >
        <dcp-nav-drawer></dcp-nav-drawer>
-        <v-content>
-            <v-container class="px-4 py-0 fill-height" fluid>
+        <v-main>
+            <v-container class="pa-0 fill-height blue-grey lighten-5"  fluid>
                 <v-row class="fill-height">
                     <v-col>
                         <transition name="fade">
@@ -13,7 +12,7 @@
                     </v-col>
                 </v-row>
             </v-container>
-        </v-content>
+        </v-main>
         <v-footer class="py-3">
             <span class="ml-auto overline">Dokanee &copy;2020</span>
         </v-footer>
@@ -21,12 +20,11 @@
 </div>
 </template>
 <script>
-import DcpNav from '@/components/DcpNavigation.vue'
+// import DcpNav from '@/components/DcpNavigation.vue'
 import DcpNavDrawer from '@/components/DcpNavDrawer.vue'
 
 export default {
     components: {
-   'dcp-nav' : DcpNav,
    'dcp-nav-drawer' : DcpNavDrawer
   }
 }
