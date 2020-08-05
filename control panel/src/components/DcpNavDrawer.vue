@@ -17,10 +17,8 @@
             height="100%"
             :permanent="sidebarMenu"
             color='primary'
-            src='@/assets/store.jpg'
             >
-            <!--             :mini-variant.sync="mini" -->
-            <v-list-item src='@/assets/store-bg.jpg' dense light class="store-sel px-0 white">
+            <v-list-item  dense light class="store-sel px-0 white">
                  <v-list-item-avatar>
                     <v-icon>mdi-store</v-icon>
                 </v-list-item-avatar>
@@ -67,9 +65,9 @@ export default {
       ],
       item: 1,
       items: [
-         { title: 'Dashboard',href:"/cpanel/dashboard", icon: 'mdi-view-dashboard', color: 'red' },
-          { title: 'Products',href:"/cpanel/products", icon: 'mdi-shopping' , color: 'red' },
-          { title: 'Categories',href:"/cpanel/settings", icon: 'mdi-server-network' },
+         { title: 'Dashboard',href:"/cpanel/dashboard", icon: 'mdi-view-dashboard'},
+          { title: 'Products',href:"/cpanel/products", icon: 'mdi-shopping'},
+          { title: 'Categories',href:"/cpanel/settings", icon: 'mdi-server-network'},
           { title: 'Coupons',href:"/settings", icon: 'mdi-star-circle'},
           { title: 'Reports',href:"/settings", icon: 'mdi-chart-bar'},
           { title: 'Customers',href:"/settings", icon: 'mdi-account-multiple-outline'},
@@ -81,14 +79,6 @@ export default {
     }
     },
     computed: {
-    menu :{
-      set(){
-      this.$store.commit('bergerMenuToggle');
-      },
-      get(){
-      return this.$store.state.bergerMenu;
-      }
-    }
     }
 }
 </script>
@@ -131,13 +121,11 @@ export default {
     height: max-content;
 }
 .cstm-active{
-  /* background: #1aae88 !important; */
   background: -webkit-linear-gradient(200deg,#4d9abf,#1aae88);
   color: white !important;
 }
 .grad{
   background-color: #142433;
-  /* background: -webkit-linear-gradient(-235deg,#123,#283593); */
 }
 .v-list-item--link:before {
      background-color: transparent !important;

@@ -4,16 +4,16 @@
     <v-row >
        <v-col
         v-for="(categorie, i) in categories"
-         :key='categorie'
-         lg='6' class=''>
-             <v-card min-height='410' color='white' min-width='360' class='rounded-t-lg no-gutters'>
-                 <v-card-text class='grad-bg white--text text-center rounded-t-lg'>
+         :key='i'
+         lg='4' class=''>
+             <v-card min-height='410' color='white' min-width='260' class='rounded-t-lg no-gutters'>
+                 <v-card-text class='green-sea-btn white--text text-center rounded-t-lg'>
                    {{categorie}}
                  </v-card-text>
                  <v-row class='pa-4'>
                    <v-col
-                   v-for='item in items[i]'
-                   :key='item'
+                   v-for='(item,j) in items[i]'
+                   :key='j'
                    lg='4'
                    >
                    <v-card>

@@ -20,7 +20,6 @@
 </div>
 </template>
 <script>
-// import DcpNav from '@/components/DcpNavigation.vue'
 import DcpNavDrawer from '@/components/DcpNavDrawer.vue'
 
 export default {

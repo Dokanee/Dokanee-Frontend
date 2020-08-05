@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/ControlPanel.vue'
-import Dashboard from '../components/routes/DcpDashboard.vue'
-import Products from '../components/routes/DcpProducts.vue'
 
 Vue.use(VueRouter)
 
@@ -10,28 +7,23 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Control Panel',
-    component: Home,
+    component: () =>
+    import(/* webpackChunkName: "cpanel" */ '@/views/ControlPanel'),
     redirect :'/cpanel/dashboard',
     children: [
       {
         path: '/cpanel/dashboard',
     name: 'Dashboard',
-    component: Dashboard,
+    component: () =>
+    import(/* webpackChunkName: "dashboard" */ '@/components/routes/DcpDashboard'),
       },
       {
         path : '/cpanel/products',
-        component: Products
+        component: () =>
+    import(/* webpackChunkName: "products" */ '@/components/routes/DcpProducts')
       }
     ]
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
 ]
 
 const router = new VueRouter({
