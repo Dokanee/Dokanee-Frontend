@@ -87,9 +87,15 @@
             </v-toolbar>
             </template>
             <template v-slot:item.avater="{ item }">
-            <div class="p-2">
-              <v-img :class="rounded-b-circle" :src="item.avater" :alt="item.name" height="60px"></v-img>
-            </div>
+              <v-avatar style="margin:5px;boeder-color:red">
+                <img
+                  :src="item.avater"
+                  :alt="John"
+                >
+              </v-avatar>
+            <!-- <div class="p-2">
+              <v-img  :src="item.avater" :alt="item.name" height="60px"></v-img>
+            </div> -->
           </template>
             <template v-slot:item.actions="{ item }">
             <v-icon
