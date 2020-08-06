@@ -1,10 +1,12 @@
 <template>
+<!-- hello -->
          <div class='blue-grey lighten-5 container-dashboard' >
              <v-container fluid>
         <template>
         <v-data-table
             :headers="headers"
             :items="person"
+            :search="search"
             sort-by="id"
             class="elevation-1"
         >
@@ -25,6 +27,15 @@
                 
                 <v-spacer></v-spacer>
                 
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field>
+
+                <v-spacer></v-spacer>
                 <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -123,6 +134,7 @@
 <script>
   export default {
     data: () => ({
+      search: '',
       dialog: false,
       headers: [
         {
@@ -242,6 +254,6 @@
 
 <style scoped>
 .poo {
-  backgrpund-color:red; border-width:1px; border-radious:25px;
+  background-color:red; border-width:1px; border-radius:25px;
 }
 </style>

@@ -26,6 +26,7 @@ export default {
 </script>
 <style scoped>
 .signupin-bg{
+    background: #ebeef0;
     background: -webkit-linear-gradient(-45deg,#00b0ff ,#8bc34a);
 }
 .tansparent{
