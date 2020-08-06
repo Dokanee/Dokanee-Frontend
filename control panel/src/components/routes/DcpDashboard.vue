@@ -1,10 +1,18 @@
 <template>
   <div class="blue-grey lighten-5 container-dashboard">
-      <span>
+      <v-row>
+        <v-col lg='1'>
+        <v-img
+            width='100'
+            height='80'
+            src='@/assets/dashboard.svg'>
+            </v-img></v-col>
+            <v-col lg='1'>
           <h2 class='dk-grey--text'>
               Dashboard
           </h2>
-      </span>
+          </v-col>
+      </v-row>
     <v-row>
       <v-col lg="3" cols="xs" class="pb-2">
         <v-card flat class="rounded-lg">
