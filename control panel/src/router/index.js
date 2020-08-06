@@ -63,7 +63,18 @@ Vue.use(VueRouter)
     import(/* webpackChunkName: "products" */ '@/components/routes/DcpHelp')
       }
     ]
-  },
+  },{
+    path: '/tmp',
+    component: () =>
+    import(/* webpackChunkName: "tmp" */ '@/views/SignUpSignIn'),
+    children: [
+      {
+        path: 'signup',
+        component: () =>
+    import(/* webpackChunkName: "tmp" */ '@/components/routes/signupsignin/DssSignUp'),
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({
