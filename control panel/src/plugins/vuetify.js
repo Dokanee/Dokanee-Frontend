@@ -1,64 +1,8 @@
 import Vue from 'vue';
-import Vuetify, {
-  VMain,
-  VContainer,
-  VRow,
-  VCol,
-  VBtn,
-  VFooter,
-    VCard,
-    VCardText,
-  VApp,
-  VAppBar,
-  VAppBarNavIcon,
-  VImg,
-  VSpacer,
-  VIcon,
-  VAvatar,
-  VNavigationDrawer,
-  VList,
-  VListItem,
-  VListItemAvatar,
-  VListItemGroup,
-  VListItemIcon,
-  VListItemContent,
-  VListItemTitle,
-  VSelect,
-  VDivider
-} from 'vuetify/lib';
+import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 
-Vue.use(Vuetify, {
-  components: {
-    VMain,
-    VContainer,
-  VRow,
-  VCol,
-  VBtn,
-  VFooter,
-    VCard,
-    VCardText,
-    VApp,
-    VAppBar,
-    VAppBarNavIcon,
-    VImg,
-    VSpacer,
-    VIcon,
-    VAvatar,
-    VNavigationDrawer,
-    VList,
-  VListItem,
-  VListItemAvatar,
-  VListItemGroup,
-  VListItemIcon,
-  VListItemContent,
-  VListItemTitle,
-  VSelect,
-  VDivider
-  },
-  directives: {
-  },
-});
+Vue.use(Vuetify);
 
 export default new Vuetify({
   theme: {
