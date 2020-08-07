@@ -1,14 +1,10 @@
 <template>
   <div class="blue-grey lighten-5 container-dashboard">
-      <v-row>
-        <v-col lg='1'>
-        <v-img
-            width='100'
-            height='80'
-            src='@/assets/dashboard.svg'>
-            </v-img></v-col>
+      <v-row cols='12' class='pa-none'>
+        <v-col lg='1' sm='1' xs='1'>
+         <v-icon color="dk-grey" class="pa-none float-right">mdi-view-dashboard</v-icon></v-col>
             <v-col lg='1'>
-          <h2 class='dk-grey--text'>
+          <h2 class='dk-grey--text partition-info'>
               Dashboard
           </h2>
           </v-col>
@@ -71,11 +67,15 @@
         </v-card>
       </v-col>
     </v-row>
-    <span>
-          <h2 class='dk-grey--text'>
+   <v-row cols='12' class='pa-none partition-info'>
+        <v-col lg='1' sm='1' xs='1'>
+         <v-icon color="dk-grey" class="pa-none float-right">mdi-information</v-icon></v-col>
+            <v-col lg='2'>
+          <h2 class='dk-grey--text partition-info'>
               Store Info
           </h2>
-      </span>
+          </v-col>
+      </v-row>
     <v-row>
       <v-col>
         <v-row justify="space-between">
@@ -136,11 +136,15 @@
         </v-row>
       </v-col>
     </v-row>
-    <span>
-          <h2 class='dk-grey--text'>
+ <v-row cols='12' class='pa-none partition-info'>
+        <v-col lg='1' sm='1' xs='1'>
+         <v-icon color="dk-grey" class="pa-none float-right">mdi mdi-chart-pie</v-icon></v-col>
+            <v-col lg='1'>
+          <h2 class='dk-grey--text partition-info'>
               Reports
           </h2>
-      </span>
+          </v-col>
+      </v-row>
     <v-row>
       <v-col class="pt-10">
         <line-chart></line-chart>
