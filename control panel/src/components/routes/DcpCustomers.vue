@@ -96,12 +96,8 @@
               <v-avatar style="margin:8px;border:1px solid gray">
                 <img
                   :src="item.avater"
-                  :alt="John"
                 >
               </v-avatar>
-            <!-- <div class="p-2">
-              <v-img  :src="item.avater" :alt="item.name" height="60px"></v-img>
-            </div> -->
           </template>
             <template v-slot:item.actions="{ item }">
             <v-icon
@@ -156,10 +152,10 @@
       },
       defaultItem: {
         name: '',
-        id: 0,
-        email: 0,
-        phone: 0,
-        gender: 0,
+        id: '',
+        email: '',
+        phone: '',
+        gender: '',
         avater: "No Image",
       },
     }),
