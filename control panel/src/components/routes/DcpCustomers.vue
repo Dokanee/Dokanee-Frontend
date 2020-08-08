@@ -18,11 +18,9 @@
                 inset
                 vertical
                 ></v-divider><v-btn
-                    color="#239EE2"
+                    color="matblue"
                     dark
                     class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
                     >{{person.length}}</v-btn>
                 
                 <v-spacer></v-spacer>
@@ -39,7 +37,7 @@
                 <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                    color="#25AA94"
+                    color="matgreen"
                     dark
                     class="mb-2"
                     v-bind="attrs"
@@ -77,19 +75,16 @@
                     <v-spacer></v-spacer>
                     <v-btn
                     style="margin:10px"
-                    color="#25AA94"
+                    color="matgreen"
                     dark
                     class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
                     @click="close">Cancel</v-btn>
                     
                     <v-btn
                     style="margin:10px"
-                    color="#25AA94"
+                    color="matgreen"
                     dark
                     class="mb-2"
-                    v-bind="attrs"
                    @click="save">Save</v-btn>
                     </v-card-actions>
                 </v-card>
@@ -98,7 +93,7 @@
             </v-toolbar>
             </template>
             <template v-slot:item.avater="{ item }">
-              <v-avatar style="margin:5px;boeder-color:red">
+              <v-avatar style="margin:8px;border:1px solid gray">
                 <img
                   :src="item.avater"
                   :alt="John"
@@ -253,7 +248,5 @@
 </script>
 
 <style scoped>
-.poo {
-  background-color:red; border-width:1px; border-radius:25px;
-}
+
 </style>

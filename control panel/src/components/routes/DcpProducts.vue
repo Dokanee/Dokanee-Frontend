@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row>
         <v-btn
-          color="green-sea-btn2 white--text"
+          color="matgreen white--text"
           class="mr-8 ml-8 mt-4 mb-4"
         >Add Categorie</v-btn>
       </v-row>

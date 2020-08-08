@@ -17,9 +17,9 @@
               <div class="white fill-height">&nbsp;</div>
             </div>
             <div class="col pa-3 py-4 white--text d-inline">
-              <h5 class="text-truncate text-uppercase sun-flower--text">Total Customers</h5>
-              <h1 class="d-inline sun-flower--text">{{ customers }}</h1>
-              <v-icon x-large color="sun-flower" class="float-right">mdi-account-multiple-outline</v-icon>
+              <h5 class="text-truncate text-uppercase matyellow--text">Total Customers</h5>
+              <h1 class="d-inline matyellow--text">{{ customers }}</h1>
+              <v-icon x-large color="matyellow" class="float-right">mdi-account-multiple-outline</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -30,10 +30,10 @@
             <div class="col-auto">
               <div class="white fill-height">&nbsp;</div>
             </div>
-            <div class="col pa-3 py-4 greensea--text">
+            <div class="col pa-3 py-4 matgreen--text">
               <h5 class="text-truncate text-uppercase">Total Product</h5>
               <h1 class="d-inline">{{ products }}</h1>
-              <v-icon x-large color="greensea" class="float-right">mdi-shopping</v-icon>
+              <v-icon x-large color="matgreen" class="float-right">mdi-shopping</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -44,10 +44,10 @@
             <div class="col-auto">
               <div class="white fill-height">&nbsp;</div>
             </div>
-            <div class="col pa-3 py-4 peterriver--text">
+            <div class="col pa-3 py-4 matblue--text">
               <h5 class="text-truncate text-uppercase">Total Sell</h5>
               <h1 class="d-inline">{{ sells }}</h1>
-              <v-icon x-large color="peterriver" class="float-right">mdi-chart-bar</v-icon>
+              <v-icon x-large color="matblue" class="float-right">mdi-chart-bar</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -58,10 +58,10 @@
             <div class="col-auto">
               <div class="white fill-height">&nbsp;</div>
             </div>
-            <div class="col pa-3 py-4 alizarin--text">
+            <div class="col pa-3 py-4 matred--text">
               <h5 class="text-truncate text-uppercase">Pending Order</h5>
               <h1 class="d-inline">{{ orders }}</h1>
-              <v-icon x-large color="alizarin" class="float-right">mdi-reload</v-icon>
+              <v-icon x-large color="matred" class="float-right">mdi-reload</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -118,14 +118,14 @@
                 <v-btn
                   depressed
                   class="btn-wh"
-                  color="white--text rounded-lg btn-wh mb-6 green-sea-btn"
+                  color="white--text rounded-lg btn-wh mb-6 matgreen"
                   to="/reports"
                 >store Info</v-btn>
                 <br>
                 <v-btn
                   depressed
                   class="btn-wh"
-                  color="white--text rounded-lg green-sea-btn"
+                  color="white--text rounded-lg matgreen"
                   to="/reports"
                 >Visit Site</v-btn>
               <!-- </v-card-actions> -->
