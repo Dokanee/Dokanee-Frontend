@@ -1,14 +1,10 @@
 <template>
   <div class="blue-grey lighten-5 container-dashboard">
-      <v-row>
-        <v-col lg='1'>
-        <v-img
-            width='100'
-            height='80'
-            src='@/assets/dashboard.svg'>
-            </v-img></v-col>
+      <v-row cols='12' class='pa-none'>
+        <v-col lg='1' sm='1' xs='1'>
+         <v-icon color="dk-grey" class="pa-none float-right">mdi-view-dashboard</v-icon></v-col>
             <v-col lg='1'>
-          <h2 class='dk-grey--text'>
+          <h2 class='dk-grey--text partition-info'>
               Dashboard
           </h2>
           </v-col>
@@ -21,9 +17,9 @@
               <div class="white fill-height">&nbsp;</div>
             </div>
             <div class="col pa-3 py-4 white--text d-inline">
-              <h5 class="text-truncate text-uppercase sun-flower--text">Total Customers</h5>
-              <h1 class="d-inline sun-flower--text">{{ customers }}</h1>
-              <v-icon x-large color="sun-flower" class="float-right">mdi-account-multiple-outline</v-icon>
+              <h5 class="text-truncate text-uppercase matyellow--text">Total Customers</h5>
+              <h1 class="d-inline matyellow--text">{{ customers }}</h1>
+              <v-icon x-large color="matyellow" class="float-right">mdi-account-multiple-outline</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -34,10 +30,10 @@
             <div class="col-auto">
               <div class="white fill-height">&nbsp;</div>
             </div>
-            <div class="col pa-3 py-4 greensea--text">
+            <div class="col pa-3 py-4 matgreen--text">
               <h5 class="text-truncate text-uppercase">Total Product</h5>
               <h1 class="d-inline">{{ products }}</h1>
-              <v-icon x-large color="greensea" class="float-right">mdi-shopping</v-icon>
+              <v-icon x-large color="matgreen" class="float-right">mdi-shopping</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -48,10 +44,10 @@
             <div class="col-auto">
               <div class="white fill-height">&nbsp;</div>
             </div>
-            <div class="col pa-3 py-4 peterriver--text">
+            <div class="col pa-3 py-4 matblue--text">
               <h5 class="text-truncate text-uppercase">Total Sell</h5>
               <h1 class="d-inline">{{ sells }}</h1>
-              <v-icon x-large color="peterriver" class="float-right">mdi-chart-bar</v-icon>
+              <v-icon x-large color="matblue" class="float-right">mdi-chart-bar</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -62,20 +58,24 @@
             <div class="col-auto">
               <div class="white fill-height">&nbsp;</div>
             </div>
-            <div class="col pa-3 py-4 alizarin--text">
+            <div class="col pa-3 py-4 matred--text">
               <h5 class="text-truncate text-uppercase">Pending Order</h5>
               <h1 class="d-inline">{{ orders }}</h1>
-              <v-icon x-large color="alizarin" class="float-right">mdi-reload</v-icon>
+              <v-icon x-large color="matred" class="float-right">mdi-reload</v-icon>
             </div>
           </v-row>
         </v-card>
       </v-col>
     </v-row>
-    <span>
-          <h2 class='dk-grey--text'>
+   <v-row cols='12' class='pa-none partition-info'>
+        <v-col lg='1' sm='1' xs='1'>
+         <v-icon color="dk-grey" class="pa-none float-right">mdi-information</v-icon></v-col>
+            <v-col lg='2'>
+          <h2 class='dk-grey--text partition-info'>
               Store Info
           </h2>
-      </span>
+          </v-col>
+      </v-row>
     <v-row>
       <v-col>
         <v-row justify="space-between">
@@ -118,14 +118,14 @@
                 <v-btn
                   depressed
                   class="btn-wh"
-                  color="white--text rounded-lg btn-wh mb-6 green-sea-btn"
+                  color="white--text rounded-lg btn-wh mb-6 matgreen"
                   to="/reports"
                 >store Info</v-btn>
                 <br>
                 <v-btn
                   depressed
                   class="btn-wh"
-                  color="white--text rounded-lg green-sea-btn"
+                  color="white--text rounded-lg matgreen"
                   to="/reports"
                 >Visit Site</v-btn>
               <!-- </v-card-actions> -->
@@ -136,11 +136,15 @@
         </v-row>
       </v-col>
     </v-row>
-    <span>
-          <h2 class='dk-grey--text'>
+ <v-row cols='12' class='pa-none partition-info'>
+        <v-col lg='1' sm='1' xs='1'>
+         <v-icon color="dk-grey" class="pa-none float-right">mdi mdi-chart-pie</v-icon></v-col>
+            <v-col lg='1'>
+          <h2 class='dk-grey--text partition-info'>
               Reports
           </h2>
-      </span>
+          </v-col>
+      </v-row>
     <v-row>
       <v-col class="pt-10">
         <line-chart></line-chart>
