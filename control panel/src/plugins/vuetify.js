@@ -27,7 +27,8 @@ export default new Vuetify({
         'sun-flower': '#8463bf',
         'alizarin': '#ff5722',
         'dk-grey': '#4f5e6f',
-        'green-sea-btn' : '#0889a1'
+        'green-sea-btn' : '#0889a1',
+        'green-sea-btn2' : '#009688'
         },
     },
   },
