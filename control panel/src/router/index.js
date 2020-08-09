@@ -71,7 +71,12 @@ Vue.use(VueRouter)
       {
         path: 'signup',
         component: () =>
-    import(/* webpackChunkName: "tmp" */ '@/components/routes/signupsignin/DssSignUp'),
+    import(/* webpackChunkName: "signup" */ '@/components/routes/signupsignin/DssSignUp'),
+      },
+      {
+        path: 'signin',
+        component: () =>
+    import(/* webpackChunkName: "signin" */ '@/components/routes/signupsignin/DssSignIn'),
       }
     ]
   }
