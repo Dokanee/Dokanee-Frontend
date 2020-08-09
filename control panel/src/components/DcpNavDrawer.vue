@@ -42,7 +42,7 @@
             <v-icon class='nav-icon'  v-text="item.icon"></v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title"></v-list-item-title>
+            <v-list-item-title v-text="item.title" style="font-size:13.5px"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>

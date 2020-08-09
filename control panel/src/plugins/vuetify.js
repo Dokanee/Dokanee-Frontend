@@ -18,7 +18,7 @@ export default new Vuetify({
         warning: '#607d8b',
         info: '#4caf50',
         success: '#2196f3',
-        matyellow: '#FF9800',
+        matyellow: '#FFC107',
         matgreen: '#25AA94',
         matblue: '#2196F3',
         matred: '#F44336',

@@ -17,23 +17,9 @@
               <div class="white fill-height">&nbsp;</div>
             </div>
             <div class="col pa-3 py-4 white--text d-inline">
-              <h5 class="text-truncate text-uppercase matyellow--text">Total Customers</h5>
-              <h1 class="d-inline matyellow--text">{{ customers }}</h1>
-              <v-icon x-large color="matyellow" class="float-right">mdi-account-multiple-outline</v-icon>
-            </div>
-          </v-row>
-        </v-card>
-      </v-col>
-      <v-col lg="3" cols="xs" class="pb-2">
-        <v-card flat class="rounded-lg">
-          <v-row class="no-gutters white">
-            <div class="col-auto">
-              <div class="white fill-height">&nbsp;</div>
-            </div>
-            <div class="col pa-3 py-4 matgreen--text">
-              <h5 class="text-truncate text-uppercase">Total Product</h5>
-              <h1 class="d-inline">{{ products }}</h1>
-              <v-icon x-large color="matgreen" class="float-right">mdi-shopping</v-icon>
+              <h5 class="text-truncate text-uppercase matgreen--text">Total Customers</h5>
+              <h1 class="d-inline matgreen--text">{{ customers }}</h1>
+              <v-icon x-large color="matgreen" class="float-right">mdi-account-multiple-outline</v-icon>
             </div>
           </v-row>
         </v-card>
@@ -45,9 +31,23 @@
               <div class="white fill-height">&nbsp;</div>
             </div>
             <div class="col pa-3 py-4 matblue--text">
+              <h5 class="text-truncate text-uppercase">Total Product</h5>
+              <h1 class="d-inline">{{ products }}</h1>
+              <v-icon x-large color="matblue" class="float-right">mdi-shopping</v-icon>
+            </div>
+          </v-row>
+        </v-card>
+      </v-col>
+      <v-col lg="3" cols="xs" class="pb-2">
+        <v-card flat class="rounded-lg">
+          <v-row class="no-gutters white">
+            <div class="col-auto">
+              <div class="white fill-height">&nbsp;</div>
+            </div>
+            <div class="col pa-3 py-4 sun-flower--text">
               <h5 class="text-truncate text-uppercase">Total Sell</h5>
               <h1 class="d-inline">{{ sells }}</h1>
-              <v-icon x-large color="matblue" class="float-right">mdi-chart-bar</v-icon>
+              <v-icon x-large color="sun-flower" class="float-right">mdi-chart-bar</v-icon>
             </div>
           </v-row>
         </v-card>
