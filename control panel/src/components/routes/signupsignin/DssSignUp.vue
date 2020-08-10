@@ -2,14 +2,15 @@
   <v-container class="full-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" lg="12" md="8">
-        <v-card color="white" class="rounded-lg ma-auto" width="760" max-height="1000">
+        <v-card color="white" class="rounded-lg ma-auto" width="780" max-height="1000" style="padding:2.5%; !important">
           <v-toolbar flat class="pa-0">
             <v-toolbar-title>
-                                    <v-img max-width='200' min-width="160" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
+                                    <v-img max-width='200' min-width="170" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
             </v-toolbar-title>
           </v-toolbar>
+          <br/>
           <v-row>
-            <v-col class="pb-0 pt-0 ml-4 dk-grey--text" cols="12" sm="6">
+            <v-col class="pb-0 pt-0 ml-4 dk-grey--text" cols="12" sm="7">
 <b>Create your Dokanee Account</b>
             </v-col>
           
@@ -27,14 +28,15 @@
               </v-col>
             </v-row>
             <v-row>
+              <v-col class="pb-0 pt-0">
               <v-text-field dense
                 v-model="email"
                 :rules="emailRules"
                 label="E-mail"
                 required
                 outlined
-                class="ml-4 mr-4 mt-0 mb-0"
               ></v-text-field>
+              </v-col>
             </v-row>
             <!-- <v-row>
               <v-col>
@@ -114,39 +116,32 @@
             </v-row>
             <v-row>
               <v-col class="pb-0 pt-0">
-                <v-text-field dense outlined v-model="last" label="NID Number" type="number"></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col class="pb-0 pt-0">
                 <v-text-field dense outlined v-model="last" label="Address"></v-text-field>
               </v-col>
             </v-row>
-            <router-link to="/tmp/signin">Sign In Instead</router-link>
+            
             <!-- <v-checkbox
               v-model="checkbox"
               :rules="[v => !!v || 'You must agree to continue!']"
               label="Do you agree?"
               required
             ></v-checkbox> -->
-   <v-row>     <v-col class="pb-0 pt-0">
+   <v-row> <a style="color:#2196F3;text-decoration: none;" href="/tmp/signin">Sign In Instead</a>    <v-col class="pb-0 pt-0">
         <v-btn class="float-right" color="matgreen white--text">Register</v-btn>
      </v-col>
    </v-row>
           </v-form>
           </v-col>
            <v-col cols="12" lg="5" md="5">
+           
              <br>
              <br>
-             <br>
-             <br>
-        <v-img class="d-none d-sm-flex" width="90%" src="@/assets/shopping.svg"></v-img>
-        <p class="dk-grey--text text-center ma-auto d-none d-sm-flex">Your store in Online <br>Start From Now</p>
+        <v-img class="d-none d-sm-flex" width="95%" src="@/assets/shopping.svg"></v-img>
+        <div class="d-none d-sm-flex dk-grey--text text-center justify-center ma-auto">Your store in Online <br>Start From Now</div>
       </v-col>
       </v-row>
         </v-card>
       </v-col>
-  
     </v-row>
   </v-container>
 </template>
@@ -158,8 +153,8 @@ export default {
       yourValue: 0,
       showPassword : false,
       showPassword2 : false,
-      password: "Password",
-      password2: "Password",
+      password: "",
+      password2: "",
        rules: {
           required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Min 8 characters',
