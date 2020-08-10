@@ -3,9 +3,6 @@
     <v-app >
         <v-main>
             <v-container class="pa-0 fill-height signupin-bg"  fluid>
-                <v-app-bar dense elevation="0">
-            <v-img max-width='200' min-width="160" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
-        </v-app-bar>
                 <v-row class="fill-height">
                     <v-col>
                         <transition name="fade">
