@@ -31,19 +31,19 @@
               <v-form ref="form" v-model="valid" lazy-validation class="pa-4">
                 <v-row>
                   <v-col class="pb-0 pt-0" cols="12" sm="6">
-                    <v-text-field dense v-model="first" label="First Name" outlined></v-text-field>
+                    <v-text-field dense v-model="formData.firstName" label="First Name" outlined></v-text-field>
                   </v-col>
 
                   <v-col class="pb-0 pt-0" cols="12" sm="6">
-                    <v-text-field dense v-model="last" label="Last Name" outlined></v-text-field>
+                    <v-text-field dense v-model="formData.lastName" label="Last Name" outlined></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col class="pb-0 pt-0">
                     <v-text-field
                       dense
-                      v-model="email"
-                      :rules="emailRules"
+                      v-model="formData.email"
+                      :rules="[rules.required, rules.email]"
                       label="E-mail"
                       required
                       outlined
@@ -59,9 +59,9 @@
                 <v-row>
                   <v-col class="pb-0 pt-0" cols="12" sm="6">
                     <v-text-field
-                      v-model="password"
+                      v-model="formData.password"
                       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                      :rules="[rules.required, rules.min]"
+                      :rules="[rules.required, rules.counter]"
                       :type="showPassword ? 'text' : 'password'"
                       name="input-10-1"
                       label="Password"
@@ -76,7 +76,7 @@
                     <v-text-field
                       v-model="password2"
                       :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
-                      :rules="[rules.required, rules.min]"
+                      :rules="[rules.required, rules.counter]"
                       :type="showPassword2 ? 'text' : 'password'"
                       name="input-10-1"
                       label="Confirm"
@@ -92,8 +92,8 @@
                   <v-col class="pb-0 pt-0" cols="12" sm="6">
                     <v-text-field
                       dense
-                      v-model="number"
-                      :rules="emailRules"
+                      v-model="formData.phoneNo"
+                      :rules="[rules.required]"
                       label="Phone Number"
                       required
                       type="number"
@@ -101,9 +101,9 @@
                     ></v-text-field>
                   </v-col>
                   <v-col class="pb-0 pt-0" cols="12" sm="6">
-                    <v-menu
-                      ref="menu1"
-                      v-model="menu1"
+                    <!-- <v-menu
+                      ref="datePickerMenu"
+                      v-model="datePickerMenu"
                       :close-on-content-click="false"
                       transition="scale-transition"
                       offset-y
@@ -113,24 +113,68 @@
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           dense
-                          v-model="dateFormatted"
+                          v-model="formData.dob"
                           label="Date"
                           persistent-hint
                           outlined
                           required
                           v-bind="attrs"
-                          @blur="date = parseDate(dateFormatted)"
+                         
                           v-on="on"
                           class="pb-0 pt-0"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
-                    </v-menu>
+                      <v-date-picker v-model="date" no-title @input="datePickerMenu = false"></v-date-picker>
+                    </v-menu> -->
+                    <v-menu
+        ref="menu"
+        v-model="datePickerMenu"
+        :close-on-content-click="false"
+        :return-value.sync="date"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="formData.dob"
+            label="Date of Birth"
+            prepend-icon="mdi-calendar"
+            readonly
+            outlined
+                          required
+                          dense
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="formData.dob"
+          no-title
+          scrollable
+        >
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            color="primary"
+            @click="datePickerMenu = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="$refs.menu.save(date)"
+          >
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-menu>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col class="pb-0 pt-0">
-                    <v-text-field dense outlined v-model="last" label="Address"></v-text-field>
+                    <v-text-field dense outlined v-model="formData.address" label="Address"></v-text-field>
                   </v-col>
                 </v-row>
 
@@ -143,7 +187,7 @@
                 <v-row>
                   <a style="color:#2196F3;text-decoration: none;" href="/tmp/signin">Sign In Instead</a>
                   <v-col class="pb-0 pt-0">
-                    <v-btn class="float-right" color="matgreen white--text">Register</v-btn>
+                    <v-btn class="float-right" color="matgreen white--text" @click="submit">Register</v-btn>
                   </v-col>
                 </v-row>
               </v-form>
@@ -164,26 +208,46 @@
   </v-container>
 </template>
 <script>
+import auth from "@/auth/index.js"
 export default {
   data() {
     return {
+      windowWidth: window.innerWidth,
       yourValue: 0,
       showPassword: false,
       showPassword2: false,
+      datePickerMenu: false,
       password: "",
       password2: "",
       rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 8 || "Min 8 characters",
-        emailMatch: () => "The email and password you entered don't match",
-      },
+          required: value => !!value || 'Required.',
+          counter: value => value.length <= 20 || 'Max 20 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          },
+        },
       date: new Date().toISOString().substr(0, 10),
+      formData: {
+        address: "",
+        dob: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        nid: "",
+        password: "",
+        phoneNo: "",
+        role: ["USER"],
+      },
     };
   },
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date);
     },
+    showImage(){
+      return this.windowWidth > 950;
+    }
   },
 
   watch: {
@@ -191,8 +255,16 @@ export default {
       this.dateFormatted = this.formatDate(this.date);
     },
   },
-
+ mounted(){
+   window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth
+    })
+ },
   methods: {
+    submit(){
+      console.log(this.formData)
+      auth.signup(JSON.stringify(this.formData));
+    },
     formatDate(date) {
       if (!date) return null;
 
