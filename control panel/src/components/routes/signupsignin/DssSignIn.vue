@@ -41,7 +41,7 @@
             <br/>
             <br/>
             <br/>
-            <v-row> <a style="color:#2196F3;text-decoration: none;margin-left:2.5%" href="/tmp/signup">Create An Account</a>    <v-col class="pb-0 pt-0">
+            <v-row> <a style="color:#2196F3;text-decoration: none;margin-left:2.5%" href="#/auth/signup">Create An Account</a>    <v-col class="pb-0 pt-0">
         <v-btn class="float-right" color="matgreen white--text">Log In</v-btn>
      </v-col>
    </v-row>

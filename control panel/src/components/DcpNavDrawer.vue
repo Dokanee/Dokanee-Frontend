@@ -29,7 +29,7 @@
             </v-list-item>
 
             <v-divider></v-divider>
-            <v-list dense nav rounded>
+            <v-list dense nav >
                 <v-list-item-group v-model="item" color='white'>
         <v-list-item
           v-for="(item, i) in items"
@@ -42,7 +42,7 @@
             <v-icon class='nav-icon'  v-text="item.icon"></v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" style="font-size:13.5px"></v-list-item-title>
+            <v-list-item-title v-text="item.title" style="font-size:14px"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
