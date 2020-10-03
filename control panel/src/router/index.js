@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+export var rt = new VueRouter()
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -64,7 +66,7 @@ Vue.use(VueRouter)
       }
     ]
   },{
-    path: '/tmp',
+    path: '/auth',
     component: () =>
     import(/* webpackChunkName: "tmp" */ '@/views/SignUpSignIn'),
     children: [
@@ -83,7 +85,7 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 
