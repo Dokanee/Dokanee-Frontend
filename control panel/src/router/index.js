@@ -81,6 +81,27 @@ Vue.use(VueRouter)
     import(/* webpackChunkName: "signin" */ '@/components/routes/signupsignin/DssSignIn'),
       }
     ]
+  },{
+    path: '/user',
+    component: () =>
+    import(/* webpackChunkName: "userprofile" */ '@/views/UserProfile'),
+    children: [
+      {
+        path: 'profile',
+        component: () =>
+    import(/* webpackChunkName: "Profile" */ '@/components/routes/userprofile/Profile'),
+      },
+      {
+        path: 'edit-profile',
+        component: () =>
+    import(/* webpackChunkName: "ProfileEdit" */ '@/components/routes/userprofile/ProfileEdit'),
+      },
+      {
+        path: 'settings',
+        component: () =>
+    import(/* webpackChunkName: "ProfileSettings" */ '@/components/routes/userprofile/ProfileSettings'),
+      }
+    ]
   }
 ]
 

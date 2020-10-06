@@ -4,23 +4,27 @@
             <v-app-bar-nav-icon @click.stop="sidebarMenu = !sidebarMenu"></v-app-bar-nav-icon>
             <v-img max-width='200' min-width="160" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
             <v-spacer></v-spacer>
-            <v-icon class='ma-4'>mdi-bell</v-icon>
-
+            <v-icon class='ma-2'>mdi-message-text-outline</v-icon>
+            <v-icon class='ma-2'>mdi-bell-outline</v-icon>
+            <v-icon class='ma-4'>mdi-blur</v-icon>
             <div class="text-center">
                 <v-menu offset-y transition="slide-y-transition">
                   <template v-slot:activator="{ on, attrs }">
                     <v-avatar color="light-blue" size="36" dark
                       v-bind="attrs"
                       v-on="on">
-                        <v-icon color='white'>mdi-account-outline</v-icon>
+                        <img
+                            src="https://www.w3schools.com/howto/img_avatar.png"
+                            alt="John"
+                          >
                     </v-avatar>
                   </template>
                   <v-card width='250'>
                     <v-list>
-                      <v-list-item href="/user/profile">
+                      <v-list-item href="#/user/profile">
                         <v-list-item-avatar>
                           <img
-                            src="https://cdn.vuetifyjs.com/images/john.jpg"
+                            src="https://www.w3schools.com/howto/img_avatar.png"
                             alt="John"
                           >
                         </v-list-item-avatar>
@@ -35,17 +39,17 @@
                     <v-divider></v-divider>
 
                     <v-list>
-                      <v-list-item
+                       <v-list-item
                       v-for="(option, i) in options"
                       :key="i"
                       link :to="option.href"
                       :value="option"
-                      active-class='cstm-active'
+                      active-class='cstm-active'                      
                     >
                       <v-list-item-icon>
                         <v-icon class='nav-icon'  v-text="option.icon"></v-icon>
                       </v-list-item-icon>
-                      <v-list-item-content>
+                      <v-list-item-content >
                         <v-list-item-title v-text="option.title" style="font-size:13.5px"></v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>
@@ -104,6 +108,7 @@ export default {
         return{
       sidebarMenu: true,
       toggleMini: false,
+      hover: false,
       storeName: "ABC Store",
       storeNames: [
           'ABC Store',
@@ -193,4 +198,7 @@ export default {
   background: -webkit-linear-gradient(90deg,#5b79a2,#2e4469);
 }
 
+.active {
+  background: green;
+}
 </style>
