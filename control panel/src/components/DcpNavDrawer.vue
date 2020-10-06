@@ -5,9 +5,56 @@
             <v-img max-width='200' min-width="160" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
             <v-spacer></v-spacer>
             <v-icon class='ma-4'>mdi-bell</v-icon>
-           <v-avatar color="light-blue" size="36">
-      <v-icon color='white'>mdi-account-outline</v-icon>
-    </v-avatar>
+
+            <div class="text-center">
+                <v-menu offset-y transition="slide-y-transition">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-avatar color="light-blue" size="36" dark
+                      v-bind="attrs"
+                      v-on="on">
+                        <v-icon color='white'>mdi-account-outline</v-icon>
+                    </v-avatar>
+                  </template>
+                  <v-card width='250'>
+                    <v-list>
+                      <v-list-item href="/user/profile">
+                        <v-list-item-avatar>
+                          <img
+                            src="https://cdn.vuetifyjs.com/images/john.jpg"
+                            alt="John"
+                          >
+                        </v-list-item-avatar>
+
+                        <v-list-item-content>
+                          <v-list-item-title>Abdullah Al Habib</v-list-item-title>
+                          <v-list-item-subtitle>see your profile</v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+
+                    <v-divider></v-divider>
+
+                    <v-list>
+                      <v-list-item
+                      v-for="(option, i) in options"
+                      :key="i"
+                      link :to="option.href"
+                      :value="option"
+                      active-class='cstm-active'
+                    >
+                      <v-list-item-icon>
+                        <v-icon class='nav-icon'  v-text="option.icon"></v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title v-text="option.title" style="font-size:13.5px"></v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    </v-list>
+                  </v-card>
+                </v-menu>
+                
+              </div>
+
         </v-app-bar>
      <v-navigation-drawer
             v-model="sidebarMenu"
@@ -75,6 +122,12 @@ export default {
           { title: 'Template',href:"/cpanel/template", icon: 'mdi-credit-card-multiple'},
           { title: 'Settings',href:"/cpanel/settings", icon: 'mdi-puzzle'},
           { title: 'Help',href:"/cpanel/help", icon: 'mdi-help-circle'}
+      ],
+      option: 1,
+      options: [
+          { title: 'Edit Profile',href:"/user/edit-profile", icon: 'mdi-account-multiple'},
+          { title: 'Settings',href:"/user/settings", icon: 'mdi-puzzle'},
+          { title: 'Sign Out',href:"/auth/signout", icon: 'mdi-logout'}
       ]
     }
     },
