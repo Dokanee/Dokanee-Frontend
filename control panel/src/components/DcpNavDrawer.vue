@@ -22,16 +22,15 @@
                   <v-card width='250'>
                     <v-list>
                       <v-list-item href="#/user/profile">
-                        <v-list-item-avatar>
+                       <v-list-item-avatar>
                           <img
                             src="https://www.w3schools.com/howto/img_avatar.png"
                             alt="John"
                           >
                         </v-list-item-avatar>
-
                         <v-list-item-content>
                           <v-list-item-title>Abdullah Al Habib</v-list-item-title>
-                          <v-list-item-subtitle>see your profile</v-list-item-subtitle>
+                          <v-list-item-subtitle>See your profile</v-list-item-subtitle>
                         </v-list-item-content>
                       </v-list-item>
                     </v-list>
@@ -130,8 +129,8 @@ export default {
       ],
       option: 1,
       options: [
-          { title: 'Edit Profile',href:"/user/edit-profile", icon: 'mdi-account-multiple'},
-          { title: 'Settings',href:"/user/settings", icon: 'mdi-puzzle'},
+          { title: 'Edit Profile',href:"/user/edit-profile", icon: 'mdi-account-edit'},
+          { title: 'Settings',href:"/user/settings", icon: 'mdi-cogs'},
           { title: 'Sign Out',href:"/auth/signout", icon: 'mdi-logout'}
       ]
     }
