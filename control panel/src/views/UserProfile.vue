@@ -5,7 +5,7 @@
         <v-main>
             <v-container class="pa-0 fill-height blue-grey lighten-5"  fluid>
                 <v-row class="fill-height">
-                    <v-col style="margin:3%">
+                    <v-col style="margin:2%">
                         <template>
                             <v-card class="mx-auto" max-width="1500" flat>
                                 <v-img height="200" src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"></v-img>
@@ -20,7 +20,7 @@
                                                 </v-list-item-avatar>
                                                 <v-list-item-content>
                                                 <v-list-item-title class="title" style="margin-top:20px;">Abdullah Al Habib</v-list-item-title>
-                                                <v-list-item-subtitle>Software Engineer | Dokanee</v-list-item-subtitle>
+                                                <v-list-item-subtitle>Store Owner</v-list-item-subtitle>
                                                 </v-list-item-content>
 
                                                 <v-list-item-action>
