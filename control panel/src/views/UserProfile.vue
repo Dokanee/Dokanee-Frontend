@@ -39,13 +39,13 @@
                             </v-card>
                             <v-row>
                                 <v-col class="col-3">
-                                    <v-card flat>
-                                        <b>About</b>
-                                    </v-card>
+                                    <about-card></about-card>
                                 </v-col>
                                 <v-col>
                                   
-                                    <v-card>
+                                    <v-card
+                                    :elevation="0">
+                                        
                                         <v-tabs
                                         v-model="tab"
                                         background-color="matgreen accent-4"
@@ -57,7 +57,7 @@
 
                                         <v-tab to="./profile">
                                             <v-icon size="25">mdi-account</v-icon>
-                                            <v-list-item-subtitle> Timeline</v-list-item-subtitle>
+                                            <v-tab-subtitle> Timeline</v-tab-subtitle>
                                         </v-tab>
 
                                         <v-tab to="./edit-profile">
@@ -67,7 +67,7 @@
 
                                         <v-tab to="./settings">
                                             <v-icon>mdi-account-settings</v-icon>
-                                            <v-list-item-subtitle> Account Settings</v-list-item-subtitle>
+                                            <v-list-item-subtitle> Settings</v-list-item-subtitle>
                                         </v-tab>
                                         </v-tabs>
                                             <v-card flat>
@@ -82,11 +82,27 @@
                                 </v-col>
                                 <v-col class="col-3">
                                         <v-card flat>
-                                            <b>My Stores</b>
+                                            <div class="block">
+                                                <v-card-content>
+                                                    <v-card-text style=" text-transform: uppercase;" >My Stores</v-card-text>
+                                                    <v-divider></v-divider>
+                                                    <v-card-subtitle>
+                                                        This part is under construction.
+                                                    </v-card-subtitle>
+                                                </v-card-content>
+                                            </div>
                                         </v-card>
                                         <v-devider></v-devider>
-                                        <v-card flat>
-                                            <b>Followers</b>
+                                        <v-card style="margin-top:10px" flat>
+                                            <div class="block">
+                                                <v-card-content>
+                                                    <v-card-text style=" text-transform: uppercase;" >Followers</v-card-text>
+                                                    <v-divider></v-divider>
+                                                    <v-card-subtitle>
+                                                        This part is under construction.
+                                                    </v-card-subtitle>
+                                                </v-card-content>
+                                            </div>
                                         </v-card>
                                 </v-col>
                             </v-row>
@@ -103,10 +119,12 @@
 </template>
 <script>
 import DcpNavDrawer from '@/components/DcpNavDrawer.vue'
+import AboutCard from '@/components/routes/userprofile/AboutCard.vue'
 
 export default {
     components: {
-   'dcp-nav-drawer' : DcpNavDrawer
+   'dcp-nav-drawer' : DcpNavDrawer,
+   'about-card' : AboutCard
   }
 }
 </script>
