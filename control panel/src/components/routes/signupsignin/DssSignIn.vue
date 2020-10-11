@@ -7,12 +7,11 @@
               <v-img max-width='200' min-width="170" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
               <p>Login with your Dokanee Account</p>
         </div>
-          <v-form ref="form" v-model="signIn" lazy-validation class="pa-4">
+          <v-form ref="form" lazy-validation class="pa-4">
             <v-row>
               <v-col class="pb-0 pt-0">
               <v-text-field dense
                 v-model="email"
-                :rules="emailRules"
                 label="E-mail"
                 required
                 outlined
@@ -42,26 +41,47 @@
             <br/>
             <br/>
             <v-row> <a style="color:#2196F3;text-decoration: none;margin-left:2.5%" href="#/auth/signup">Create An Account</a>    <v-col class="pb-0 pt-0">
-        <v-btn class="float-right" color="matgreen white--text">Log In</v-btn>
+        <v-btn class="float-right" color="matgreen white--text" @click="submit">Log In</v-btn>
      </v-col>
    </v-row>
           </v-form>
         </v-card>
       </v-col>
     </v-row>
+     <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+      height="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+         Logging In
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
 
-
+import auth from "@/auth/index.js"
 export default {
     data() {
     return {
-      yourValue: 0,
-      showPassword : false,
-      showPassword2 : false,
+      email: "",
       password: "",
-      password2: "",
+      showPassword: false,
+      dialog: false,
+      response: "",
        rules: {
           required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Min 8 characters',
@@ -74,6 +94,39 @@ export default {
       this.dateFormatted = this.formatDate(this.date);
     },
   },
+  methods: {
+    submit(){
+      let i = this;
+        this.dialog = true;
+       let signInData = {
+         email: this.email,
+         password: this.password
+       }
+        setTimeout(() => {   
+            i.response = auth.login(signInData);
+        }, 4000)
+  
+    }
+  },
+  mounted(){
+    let token = localStorage.getItem('access_token');
+    if(token != "") {
+  console.log("already logged in");
+  window.location.href = "http://localhost:8080/#/cpanel/dashboard";
+    }
+         
+  },
+    watch: {
+      response (val) {
+          let i = this;
+         if(val!=false){
+      this.dialog = false;
+    setTimeout(() => {   
+            window.location.href = "http://localhost:8080/#/";
+        }, 4000)
+   }
+      },
+    }
 }
 </script>
 <style scoped>

@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '',
     name: 'Control Panel',
     component: () =>
     import(/* webpackChunkName: "cpanel" */ '@/views/ControlPanel'),
@@ -79,6 +79,11 @@ Vue.use(VueRouter)
         path: 'signin',
         component: () =>
     import(/* webpackChunkName: "signin" */ '@/components/routes/signupsignin/DssSignIn'),
+      },
+      {
+        path: 'signout',
+        component: () =>
+    import(/* webpackChunkName: "signout" */ '@/components/routes/signupsignin/DssSignOut'),
       }
     ]
   },{

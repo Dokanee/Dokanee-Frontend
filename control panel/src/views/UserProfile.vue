@@ -125,6 +125,12 @@ export default {
     components: {
    'dcp-nav-drawer' : DcpNavDrawer,
    'about-card' : AboutCard
+  },
+  mounted(){
+      let token = localStorage.getItem('access_token');
+    if(token == "") 
+               window.location.href = "http://localhost:8080/#/auth/signin";
+
   }
 }
 </script>

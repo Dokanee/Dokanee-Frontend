@@ -21,13 +21,15 @@ export default {
 
   // Send a request to the login URL and save the returned JWT
   login(data, redirect) {
-    axios.get(LOGIN_URL, data)
+    axios.post(LOGIN_URL, data)
     .then(response => {
+      console.log(response)
       localStorage.setItem('id_token', response.id_token)
-      localStorage.setItem('access_token', response.access_token)
-
+      localStorage.setItem('access_token', response.data.accessToken)
+    
       this.user.authenticated = true
-
+      console.log(localStorage)
+      return true;
       // Redirect to a specified route
       if(redirect) {
         rt.go(redirect)        
@@ -42,10 +44,11 @@ export default {
     axios.post(SIGNUP_URL, data, options)
     .then(response => {
       console.log(response)
+      if(response.data.massage == "Email Already Exists") return "ExMail";
       localStorage.setItem('id_token', response.id_token)
       localStorage.setItem('access_token', response.data.accessToken)
-      this.user.authenticated = true
-      console.log(localStorage)
+      // this.user.authenticated = true
+      // console.log(localStorage)
 
       if(redirect) {
         rt.go(redirect)        

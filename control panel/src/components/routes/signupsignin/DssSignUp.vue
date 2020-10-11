@@ -237,7 +237,7 @@ export default {
         nid: "",
         password: "",
         phoneNo: "",
-        role: ["USER"],
+        role: ["OWNER"],
       },
     };
   },
@@ -259,6 +259,7 @@ export default {
    window.addEventListener('resize', () => {
       this.windowWidth = window.innerWidth
     })
+   // if(localStorage.getItem("access_token"))
  },
   methods: {
     submit(){

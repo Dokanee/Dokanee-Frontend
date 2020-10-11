@@ -25,6 +25,12 @@ import DcpNavDrawer from '@/components/DcpNavDrawer.vue'
 export default {
     components: {
    'dcp-nav-drawer' : DcpNavDrawer
+  },
+  mounted(){
+      let token = localStorage.getItem('access_token');
+    if(token == "") 
+                 window.location.href = "http://localhost:8080/#/auth/signin";
+
   }
 }
 </script>
