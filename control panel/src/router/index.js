@@ -107,6 +107,12 @@ Vue.use(VueRouter)
     import(/* webpackChunkName: "ProfileSettings" */ '@/components/routes/userprofile/ProfileSettings'),
       }
     ]
+  },
+  {
+    path: '/createstore',
+    component: () =>
+    import(/* webpackChunkName: "storecreate" */ '@/views/StoreCreate'),
+
   }
 ]
 
