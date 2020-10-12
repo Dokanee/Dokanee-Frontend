@@ -38,29 +38,34 @@
        <v-form ref="form" v-model="valid" lazy-validation class="pa-4">
  <v-row>
                   <v-col class="pb-0 pt-0" cols="12" lg="12" sm="12">
-                    <v-text-field dense v-model="formData.storeTitle" label="Store Title" outlined></v-text-field>
+                    <v-text-field dense v-model="formData.storeTitle" label="Store Title" :rules="[v => !!v || 'Title is required']"
+        required outlined></v-text-field>
                   </v-col>
 
                   <v-col class="pb-0 pt-0" cols="12" sm="12">
-                    <v-text-field dense v-model="formData.description" label="Description" outlined></v-text-field>
+                    <v-text-field dense v-model="formData.description" label="Description" :rules="[v => !!v || 'Description is required']"
+        required outlined></v-text-field>
                   </v-col>
 
                   <v-col class="pb-0 pt-0" cols="12" sm="12">
-                    <v-text-field dense v-model="formData.domain" label="Domain" outlined></v-text-field>
+                    <v-text-field dense v-model="formData.domain" label="Domain" :rules="[v => !!v || 'Domain is required']"
+        required outlined></v-text-field>
                   </v-col>
                   <v-col class="float-right">
                   <span>You can add custom <b>domain</b> later</span>
                   </v-col>
  </v-row>
-       </v-form>
-      </v-card>
-      <v-btn
+  <v-btn
         color="secondary"
         class="float-right"
-        @click="steps = 2"
+        @click="validateAndContinue"
+       :disabled="!valid"
       >
         Continue
       </v-btn>
+       </v-form>
+      </v-card>
+     
       <!-- <v-btn text>
         Cancel
       </v-btn> -->
@@ -84,7 +89,7 @@
          <v-card
        
       flat
-        class="mb-12"
+        class="mb-12 cursor-pointer"
         color="blue"
         height="100px"
         max-width="100px"
@@ -148,13 +153,21 @@ export default {
      data () {
       return {
         steps: 1,
+        valid: true,
         formData: {
-            storeName: "",
-            description: "",
-            domain: ""
+            storeName: null,
+            description: null,
+            domain: null
         }
       }
     },
+    methods: {
+      validateAndContinue(){
+       let v = this.$refs.form.validate();
+       if(v == true)
+         this.steps = 2;
+      }
+    }
 }
 </script>
 <style scoped>
