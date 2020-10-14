@@ -29,7 +29,8 @@ export default {
   mounted(){
       let token = localStorage.getItem('access_token');
     if(token == "") 
-                 window.location.href = "http://localhost:8080/#/auth/signin";
+                //  window.location.href = "http://localhost:8080/auth/signin";
+                this.$router.push("/auth/signin");
 
   }
 }

@@ -13,6 +13,7 @@
               <v-text-field dense
                 v-model="email"
                 label="E-mail"
+                  :rules="[rules.required]"
                 required
                 outlined
               ></v-text-field>
@@ -31,6 +32,7 @@
             hint="At least 8 characters"
             counter
             outlined
+            required
             dense
             @click:append="showPassword = !showPassword"
           ></v-text-field>
@@ -96,37 +98,42 @@ export default {
   },
   methods: {
     submit(){
+      let r =  this.$refs.form.validate();
+      if(r == true){
       let i = this;
         this.dialog = true;
        let signInData = {
          email: this.email,
          password: this.password
        }
-        setTimeout(() => {   
-            i.response = auth.login(signInData);
-        }, 4000)
-  
+        // setTimeout(() => {   
+            i.response = auth.login(signInData,"http://localhost:8080/",0);
+            
+        // }, 4000)
+      }
     }
   },
   mounted(){
     let token = localStorage.getItem('access_token');
     if(token != "") {
   console.log("already logged in");
-  window.location.href = "http://localhost:8080/#/cpanel/dashboard";
+  // window.location.href = "http://localhost:8080/#/cpanel/dashboard";
+  this.$router.push("/cpanel/dashboard");
     }
          
   },
-    watch: {
-      response (val) {
-          let i = this;
-         if(val!=false){
-      this.dialog = false;
-    setTimeout(() => {   
-            window.location.href = "http://localhost:8080/#/";
-        }, 4000)
-   }
-      },
-    }
+  //   watch: {
+  //     response (val) {
+  //       console.log("logging" + val);
+  //         let i = this;
+  //        if(val!=false){
+  //     this.dialog = false;
+  //   setTimeout(() => {   
+  //           window.location.href = "http://localhost:8080/#/";
+  //       }, 4000)
+  //  }
+  //     },
+  //   }
 }
 </script>
 <style scoped>

@@ -113,11 +113,15 @@ Vue.use(VueRouter)
     component: () =>
     import(/* webpackChunkName: "storecreate" */ '@/views/StoreCreate'),
 
+  },
+  {
+    path: '*',
+    redirect: "/"
   }
 ]
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   routes
 })
 

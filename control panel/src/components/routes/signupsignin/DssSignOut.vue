@@ -46,7 +46,7 @@ export default {
         setTimeout(() => {
             localStorage.setItem("access_token","");
             this.dialog = false;
-            window.location.href = "http://localhost:8080/#/auth/signin";
+          this.$router.push("/auth/signin");
         }, 4000)
       },
     }
