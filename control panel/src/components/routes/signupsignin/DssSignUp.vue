@@ -1,6 +1,6 @@
 <template>
   <v-container class="full-height" fluid>
-    <v-row align="center" justify="center">
+    <v-row  align="center" justify="center">
       <v-col cols="12" lg="12" md="8">
         <v-card
           color="white"
@@ -9,6 +9,8 @@
           max-height="1000"
           style="padding:2.5%; !important"
         >
+         
+        <span  v-show="!loadingResponse">
           <v-toolbar flat class="pa-0">
             <v-toolbar-title>
               <v-img
@@ -202,6 +204,15 @@
               </div>
             </v-col>
           </v-row>
+        </span>
+          <v-progress-circular
+          v-show="loadingResponse"
+      :size="130"
+      :width="11"
+      color="pink"
+      indeterminate
+      align="center" justify="center"
+    ></v-progress-circular>
         </v-card>
       </v-col>
     </v-row>
@@ -213,6 +224,7 @@ export default {
   data() {
     return {
       windowWidth: window.innerWidth,
+      loadingResponse: false,
       yourValue: 0,
       showPassword: false,
       showPassword2: false,
@@ -264,6 +276,7 @@ export default {
   methods: {
     submit(){
       console.log(this.formData)
+      this.loadingResponse = true;
       auth.signup(JSON.stringify(this.formData));
     },
     formatDate(date) {
