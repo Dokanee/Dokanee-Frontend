@@ -47,10 +47,10 @@
                             <!-- profile hero end -->
 
                             <!-- profile body -->
-                            <v-row>
+                            <v-row class="mb-12">
                                 <!-- info card start -->
 
-                                <v-col class="col-3">
+                                <v-col>
                                     <v-card flat>
                                     <div class="block">
                                         <v-card-content>
@@ -87,7 +87,7 @@
                                 <!-- info card end -->
 
                                 <!-- user option tab start -->
-                                <v-col>
+                                <v-col :md="6">
                                     <v-card
                                     :elevation="0">
                                         
@@ -128,7 +128,7 @@
                                 <!-- user option tab end -->
 
                                 <!-- right sidebar -->
-                                <v-col class="col-3">
+                                <v-col>
                                         <v-card flat>
                                             <div class="block">
                                                 <v-card-content>
