@@ -7,12 +7,18 @@
                 <v-row class="fill-height">
                     <v-col style="margin:2%">
                         <template>
+                            <!-- profile herp start -->
+
                             <v-card class="mx-auto" max-width="1500" flat>
                                 <v-img height="200" src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"></v-img>
                                 <v-row style="margin-left:2.5%;margin-top:-40px;position:related; top: 50px">
 
                                             <v-list-item>
                                             <v-list-item-avatar size="100">
+                                                <v-file-input style="position:absolute;top:55px;left:37px"
+                                                    filled
+                                                    prepend-icon="mdi-camera"
+                                                ></v-file-input>
                                                 <img
                                                     src="https://www.w3schools.com/howto/img_avatar.png"
                                                     alt="Profile"
@@ -37,8 +43,14 @@
                                             </v-list-item>
                                 </v-row>
                             </v-card>
-                            <v-row>
-                                <v-col class="col-3">
+
+                            <!-- profile hero end -->
+
+                            <!-- profile body -->
+                            <v-row class="mb-12">
+                                <!-- info card start -->
+
+                                <v-col>
                                     <v-card flat>
                                     <div class="block">
                                         <v-card-content>
@@ -72,8 +84,10 @@
                                     </div>
                                 </v-card>
                                 </v-col>
-                                <v-col>
-                                  
+                                <!-- info card end -->
+
+                                <!-- user option tab start -->
+                                <v-col :md="6">
                                     <v-card
                                     :elevation="0">
                                         
@@ -111,7 +125,10 @@
                                     </v-card>
                                     
                                 </v-col>
-                                <v-col class="col-3">
+                                <!-- user option tab end -->
+
+                                <!-- right sidebar -->
+                                <v-col>
                                         <v-card flat>
                                             <div class="block">
                                                 <v-card-content>
@@ -136,7 +153,9 @@
                                             </div>
                                         </v-card>
                                 </v-col>
+                                <!-- right sidebar end -->
                             </v-row>
+                            <!-- profile body end -->
                         </template>
                     </v-col>
                 </v-row>
@@ -157,15 +176,15 @@ export default {
         auth: 'Bearer ' + localStorage.getItem('access_token'),
         userinfo:  {
             address: "",
-dob: "",
-email: "",
-firstName: "",
-lastName: "",
-nid: "",
-phone: "",
-photoLink: null,
-storeIds: [],
-userName: ""
+            dob: "",
+            email: "",
+            firstName: "",
+            lastName: "",
+            nid: "",
+            phone: "",
+            photoLink: null,
+            storeIds: [],
+            userName: ""
         },
         socials: [
         {
@@ -197,16 +216,16 @@ userName: ""
         console.log(response)
         let d = response.data.body;
         this.userinfo = {
-address: d.address,
-dob: d.dob,
-email: d.email,
-firstName: d.firstName,
-lastName: d.lastName,
-nid: d.nid,
-phone: d.phone,
-photoLink: d.photoLink,
-storeIds: d.storeIds,
-userName: d.userName
+            address: d.address,
+            dob: d.dob,
+            email: d.email,
+            firstName: d.firstName,
+            lastName: d.lastName,
+            nid: d.nid,
+            phone: d.phone,
+            photoLink: d.photoLink,
+            storeIds: d.storeIds,
+            userName: d.userName
         }
     })
       }
