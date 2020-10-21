@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    bergerMenu: true
+    bergerMenu: true,
+    tmpSignIn: false,
   },
   mutations: {
     bergerMenuToggle(state){

@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+export var rt = new VueRouter()
+
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '',
     name: 'Control Panel',
     component: () =>
     import(/* webpackChunkName: "cpanel" */ '@/views/ControlPanel'),
@@ -64,7 +66,7 @@ Vue.use(VueRouter)
       }
     ]
   },{
-    path: '/tmp',
+    path: '/auth',
     component: () =>
     import(/* webpackChunkName: "tmp" */ '@/views/SignUpSignIn'),
     children: [
@@ -77,13 +79,49 @@ Vue.use(VueRouter)
         path: 'signin',
         component: () =>
     import(/* webpackChunkName: "signin" */ '@/components/routes/signupsignin/DssSignIn'),
+      },
+      {
+        path: 'signout',
+        component: () =>
+    import(/* webpackChunkName: "signout" */ '@/components/routes/signupsignin/DssSignOut'),
       }
     ]
+  },{
+    path: '/user',
+    component: () =>
+    import(/* webpackChunkName: "userprofile" */ '@/views/UserProfile'),
+    children: [
+      {
+        path: 'profile',
+        component: () =>
+    import(/* webpackChunkName: "Profile" */ '@/components/routes/userprofile/Profile'),
+      },
+      {
+        path: 'edit-profile',
+        component: () =>
+    import(/* webpackChunkName: "ProfileEdit" */ '@/components/routes/userprofile/ProfileEdit'),
+      },
+      {
+        path: 'settings',
+        component: () =>
+    import(/* webpackChunkName: "ProfileSettings" */ '@/components/routes/userprofile/ProfileSettings'),
+      }
+    ]
+  },
+  {
+    path: '/createstore',
+    component: () =>
+    import(/* webpackChunkName: "storecreate" */ '@/views/StoreCreate'),
+
+  },
+  {
+    path: '*',
+    redirect: "/"
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 
