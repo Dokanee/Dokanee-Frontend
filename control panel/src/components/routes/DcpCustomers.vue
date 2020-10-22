@@ -1,17 +1,18 @@
 <template>
 <!-- hello -->
          <div class='blue-grey lighten-5 container-dashboard' >
-             <v-container fluid>
-        <template>
+          <v-container fluid>
+        <template >
         <v-data-table
+            :elevation="0"
             :headers="headers"
             :items="person"
             :search="search"
             sort-by="id"
-            class="elevation-1"
+            class="elevation-0 ma-2"
         >
             <template v-slot:top>
-            <v-toolbar flat color="#ECEFF1">
+            <v-toolbar :elevation="0" flat rounded color="white">
                 <v-toolbar-title>Customers</v-toolbar-title>
                 <v-divider
                 class="mx-4"
@@ -29,6 +30,7 @@
                   v-model="search"
                   append-icon="mdi-magnify"
                   label="Search"
+                  :md="6"
                   single-line
                   hide-details
                 ></v-text-field>
@@ -101,6 +103,8 @@
           </template>
             <template v-slot:item.actions="{ item }">
             <v-icon
+                style="background-color:matblue;display:inline-block;"
+                color="matblue"
                 small
                 class="mr-2"
                 @click="editItem(item)"
@@ -108,6 +112,7 @@
                 mdi-pencil
             </v-icon>
             <v-icon
+                color="matred"
                 small
                 @click="deleteItem(item)"
             >
@@ -128,14 +133,13 @@
       search: '',
       dialog: false,
       headers: [
+        { align: 'start',text: 'ID', value: 'id' },
         {
           text: '',
-          align: 'start',
           sortable: false,
           value: 'avater',
         },
         { text: 'Name', value: 'name' },
-        { text: 'ID', value: 'id' },
         { text: 'Email', value: 'email' },
         { text: 'Phone Number', value: 'phone' },
         { text: 'Gender', value: 'gender' },
