@@ -32,6 +32,8 @@ export default {
                 //  window.location.href = "http://localhost:8080/auth/signin";
                 this.$router.push("/auth/signin");
 
+                
+
   }
 }
 </script>

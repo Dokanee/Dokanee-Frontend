@@ -20,20 +20,19 @@ export default {
   },
 
   // Send a request to the login URL and save the returned JWT
-  login(data, redirect, f) {
+  login(data, redirect) {
     axios.post(LOGIN_URL, data)
     .then(response => {
       console.log(response)
       localStorage.setItem('id_token', response.id_token)
       localStorage.setItem('access_token', response.data.accessToken)
+      localStorage.setItem("role",response.data.role)
     
       this.user.authenticated = true
       console.log(localStorage)
 
       // Redirect to a specified route
-      if(f == 0) {
-        window.location.href = redirect;    
-      }
+      redirect();
     })
     .catch(err => {
       return false;

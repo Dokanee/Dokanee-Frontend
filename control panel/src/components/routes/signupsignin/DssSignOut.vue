@@ -45,6 +45,7 @@ export default {
          
         setTimeout(() => {
             localStorage.setItem("access_token","");
+             localStorage.removeItem("role");
             this.dialog = false;
           this.$router.push("/auth/signin");
         }, 4000)

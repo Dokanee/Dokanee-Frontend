@@ -69,14 +69,27 @@
             color='primary'
             >
             <v-list-item  dense light class="store-sel px-0 white">
-                 <v-list-item-avatar>
+                 <!-- <v-list-item-avatar>
                     <v-icon>mdi-store</v-icon>
-                </v-list-item-avatar>
+                </v-list-item-avatar> -->
                  <v-select color='teal darken--3'
-          v-model="storeName"
-          :items="storeNames"
+                 v-model=currentStore
+          :items="stores"
+          item-text="storeName" item-value="storeId"
+          @change=loadData(currentStore)
         ></v-select>
+         <v-btn
+      class="mx-2"
+      fab
+      dark
+      color="indigo"
+    >
+      <v-icon dark>
+        mdi-plus
+      </v-icon>
+    </v-btn>
             </v-list-item>
+            
 
             <v-divider></v-divider>
             <v-list dense nav >
@@ -101,19 +114,18 @@
         </div>
 </template>
 <script>
+import axios from 'axios'
+import auth from "@/auth/index.js"
 export default {
     name: 'DcpNavDrawer',
     data(){
         return{
+          auth: 'Bearer ' + localStorage.getItem('access_token'),
       sidebarMenu: true,
       toggleMini: false,
       hover: false,
-      storeName: "ABC Store",
-      storeNames: [
-          'ABC Store',
-         'XYZ Store',
-         'New Store'
-      ],
+      stores: null,
+      currentStore: "",
       item: 1,
       items: [
          { title: 'Dashboard',href:"/cpanel/dashboard", icon: 'mdi-view-dashboard'},
@@ -135,7 +147,63 @@ export default {
       ]
     }
     },
-    computed: {
+    methods: {
+     getStoreInfo(){
+       let ins = this;
+       let a = auth.getAuthHeader();
+               axios.get('https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/', { headers: { 'Authorization': this.auth }})
+               .then(r => {
+                 console.log(r.data)
+                 if(r.request.status == 200){
+                  ins.currentStore = r.data[0].storeName
+                  console.log(r.data[0].storeName)
+                  ins.stores = r.data
+                 }
+               })
+     },
+     loadData(e){
+       this.$store.commit("setStore",e)
+       this.loadProducsData();
+     },
+     loadProducsData(){
+          console.log("changed")
+    let instance = this;
+    axios.get(`https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/category/?storeId=${this.$store.state.currentSelectedStore}`, { headers: { 'Authorization': this.auth }})
+    .then(r => {
+      if(r.request.status == 200){
+        let data = r.data;
+        let catArr = [],
+            catNameArr = [],
+            prodArr = [];
+        for(let c = 0;c < data.length;c++){
+          catArr.push(data[c].categoryId);
+          catNameArr.push(data[c].categoryName);
+        }
+        this.catArr = catArr;
+        this.catNameArr = catNameArr;
+        this.$store.commit("setCategoryNames",catNameArr);
+        console.log(catArr.length)
+        for(let c = 0; c < catArr.length;c++){
+          axios.get(`https://dokanee-backend-monolithic.herokuapp.com/dashboard/product?categoryId=${catArr[c]}&storeId=${this.$store.state.currentSelectedStore}`, { headers: { 'Authorization': this.auth }})
+            .then(r => {
+             console.log(r.data);
+            
+             if(r.data.statusCode == 200){
+              prodArr.push(r.data.body);
+             }
+      
+            })        
+        }
+        // console.log("back")
+         instance.$store.commit("setProducts",prodArr)
+         this.$store.commit("setProductsLoaded", true)
+
+      }
+    })
+     }
+    },
+    mounted() {
+      this.getStoreInfo();
     }
 }
 </script>

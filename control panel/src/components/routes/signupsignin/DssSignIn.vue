@@ -107,10 +107,13 @@ export default {
          password: this.password
        }
         // setTimeout(() => {   
-            i.response = auth.login(signInData,"http://localhost:8080/",0);
+            i.response = auth.login(signInData,this.redirect);
             
         // }, 4000)
       }
+    },
+    redirect(){
+      this.$router.push("/cpanel/dashboard");
     }
   },
   mounted(){

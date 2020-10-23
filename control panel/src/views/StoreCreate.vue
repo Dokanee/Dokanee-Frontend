@@ -38,17 +38,75 @@
        <v-form ref="form" v-model="valid" lazy-validation class="pa-4">
  <v-row>
                   <v-col class="pb-0 pt-0" cols="12" lg="12" sm="12">
-                    <v-text-field dense v-model="formData.storeTitle" label="Store Title" :rules="[v => !!v || 'Title is required']"
+                    <v-text-field dense v-model="formData.storeName" label="Store Title" :rules="[v => !!v || 'Title is required']"
         required outlined></v-text-field>
                   </v-col>
 
                   <v-col class="pb-0 pt-0" cols="12" sm="12">
-                    <v-text-field dense v-model="formData.description" label="Description" :rules="[v => !!v || 'Description is required']"
+                    <v-text-field dense v-model="formData.storeInfo" label="Description" :rules="[v => !!v || 'Description is required']"
+        required outlined></v-text-field>
+                  </v-col>
+ <v-col class="pb-0 pt-0" cols="12" sm="12">
+                    <v-text-field dense v-model="formData.storeCategory" label="Category" :rules="[v => !!v || 'Category is required']"
+        required outlined></v-text-field>
+                  </v-col>
+                  <v-col class="pb-0 pt-0" cols="12" sm="12">
+                    <v-text-field dense v-model="formData.subDomainName" label="Domain" :rules="[v => !!v || 'Domain is required', rules.name, rules.available]"
+        required outlined></v-text-field>
+                  </v-col>
+                  <v-col class="float-right">
+                  <span>You can add custom <b>domain</b> later</span>
+                  </v-col>
+ </v-row>
+  <v-btn
+        color="secondary"
+        class="float-right"
+        @click="validateAndContinue"
+       :disabled="!valid"
+      >
+        Continue
+      </v-btn>
+       </v-form>
+      </v-card>
+     
+      <!-- <v-btn text>
+        Cancel
+      </v-btn> -->
+    </v-stepper-content>
+<!--  -->
+ <v-stepper-step
+      :complete="steps > 2"
+      step="2"
+    >
+     Additional Info
+      <small>provide needed information</small>
+    </v-stepper-step>
+
+    <v-stepper-content step="2">
+      <v-card
+      flat
+        class="mb-12"
+        height="300px"
+        max-width="800"
+      >
+       <v-form ref="forms" v-model="valid2" lazy-validation class="pa-4">
+ <v-row>
+                  <v-col class="pb-0 pt-0" cols="12" lg="12" sm="12">
+                    <v-text-field dense v-model="formData.address" label="Store Address" :rules="[v => !!v || 'Address is required']"
         required outlined></v-text-field>
                   </v-col>
 
                   <v-col class="pb-0 pt-0" cols="12" sm="12">
-                    <v-text-field dense v-model="formData.domain" label="Domain" :rules="[v => !!v || 'Domain is required']"
+                    <v-text-field dense v-model="formData.division" label="Division" :rules="[v => !!v || 'Division is required']"
+        required outlined></v-text-field>
+                  </v-col>
+
+                  <v-col class="pb-0 pt-0" cols="12" sm="12">
+                    <v-text-field dense v-model="formData.zilla" label="Zilla" :rules="[v => !!v || 'Zilla is required']"
+        required outlined></v-text-field>
+                  </v-col>
+                   <v-col class="pb-0 pt-0" cols="12" sm="12">
+                    <v-text-field dense v-model="formData.upzila" label="Upzila" :rules="[v => !!v || 'Upzilla is required']"
         required outlined></v-text-field>
                   </v-col>
                   <v-col class="float-right">
@@ -71,9 +129,10 @@
       </v-btn> -->
     </v-stepper-content>
 
+<!--  -->
     <v-stepper-step
-      :complete="steps > 2"
-      step="2"
+      :complete="steps > 3"
+      step="3"
     >
       Choose A template
     </v-stepper-step>
@@ -129,7 +188,7 @@
         Create Store
       </v-btn>
       <v-btn
-       @click="steps = 1"
+       @click="steps = 2"
         class="float-right"
         text>
         Previous
@@ -149,15 +208,37 @@
     </div>
 </template>
 <script>
+import axios from "axios";
 export default {
      data () {
       return {
+         auth: 'Bearer ' + localStorage.getItem('access_token'),
         steps: 1,
         valid: true,
+        valid2: true,
+        available: true,
+         rules: {
+          required: value => !!value || 'Required.',
+          name: value => {
+           var letters = /^[A-Za-z]+$/
+            return letters.test(value) || 'Invalid subdomain name only Alphabets allowed!.'
+          },
+          available: value => {
+            if(this.available == false)
+            return 'Subdomain not available'
+            else return true;
+          }
+        },
         formData: {
-            storeName: null,
-            description: null,
-            domain: null
+            address : null,
+  division: null,
+  havePhysicalStore: true,
+  storeCategory: null,
+  storeInfo: null,
+  storeName: null,
+  subDomainName: null,
+  upzila: null,
+  zila: null
         }
       }
     },
@@ -165,7 +246,15 @@ export default {
       validateAndContinue(){
        let v = this.$refs.form.validate();
        if(v == true)
-         this.steps = 2;
+this.checkDomain()
+         //this.steps = 2;
+      },
+      checkDomain(){
+        axios.get(`https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/check?subDomain=${this.formData.subDomainName}`, { headers: { 'Authorization': this.auth }})
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => console.log(err.body));
       }
     }
 }
