@@ -9,29 +9,33 @@ export default new Vuex.Store({
     tmpSignIn: false,
     currentSelectedStore: "",
     products: [],
-    categoryNames: ["","","","","",""],
+    categoryNames: ["", "", "", "", "", ""],
     productsLoaded: false,
+    fullCategoryResponse: []
   },
   mutations: {
-    bergerMenuToggle(state){
-      if(state.bergerMenu)
-      state.bergerMenu = false;
+    bergerMenuToggle(state) {
+      if (state.bergerMenu)
+        state.bergerMenu = false;
       else state.bergerMenu = true;
     },
-    setStore(state,payload){
+    setStore(state, payload) {
       state.currentSelectedStore = payload;
-    console.log(state.currentSelectedStore)
+      console.log(state.currentSelectedStore)
     },
-    setProducts(state,payload){
+    setProducts(state, payload) {
       state.products = payload;
       console.log(state.products)
     },
-    setProductsLoaded(state, payload){
-state.productsLoaded = payload;
+    setProductsLoaded(state, payload) {
+      state.productsLoaded = payload;
     },
-    setCategoryNames(state, payload){
+    setCategoryNames(state, payload) {
       state.categoryNames = payload;
-          }
+    },
+    setFullCatRes(state, payload) {
+      state.fullCategoryResponse = payload;
+    }
   },
   actions: {
   },

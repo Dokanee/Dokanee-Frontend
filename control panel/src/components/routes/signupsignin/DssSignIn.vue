@@ -57,6 +57,7 @@
       width="300"
       height="300"
     >
+    <!--   For notification warning -->
       <v-card
         color="primary"
         dark
@@ -70,6 +71,7 @@
           ></v-progress-linear>
         </v-card-text>
       </v-card>
+      <!--  -->
     </v-dialog>
   </v-container>
 </template>

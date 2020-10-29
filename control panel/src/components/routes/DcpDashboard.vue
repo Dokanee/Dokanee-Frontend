@@ -1,14 +1,13 @@
 <template>
   <div class="blue-grey lighten-5 container-dashboard">
-      <v-row cols='12' class='pa-none'>
-        <v-col lg='1' sm='1' xs='1'>
-         <v-icon color="dk-grey" class="pa-none float-right">mdi-view-dashboard</v-icon></v-col>
-            <v-col lg='1'>
-          <h2 class='dk-grey--text partition-info'>
-              Dashboard
-          </h2>
-          </v-col>
-      </v-row>
+    <v-row cols="12" class="pa-none">
+      <v-col lg="1" sm="1" xs="1">
+        <v-icon color="dk-grey" class="pa-none float-right">mdi-view-dashboard</v-icon>
+      </v-col>
+      <v-col lg="1">
+        <h2 class="dk-grey--text partition-info">Dashboard</h2>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col lg="3" cols="xs" class="pb-2">
         <v-card flat class="rounded-lg">
@@ -67,15 +66,14 @@
         </v-card>
       </v-col>
     </v-row>
-   <v-row cols='12' class='pa-none partition-info'>
-        <v-col lg='1' sm='1' xs='1'>
-         <v-icon color="dk-grey" class="pa-none float-right">mdi-information</v-icon></v-col>
-            <v-col lg='2'>
-          <h2 class='dk-grey--text partition-info'>
-              Store Info
-          </h2>
-          </v-col>
-      </v-row>
+    <v-row cols="12" class="pa-none partition-info">
+      <v-col lg="1" sm="1" xs="1">
+        <v-icon color="dk-grey" class="pa-none float-right">mdi-information</v-icon>
+      </v-col>
+      <v-col lg="2">
+        <h2 class="dk-grey--text partition-info">Store Info</h2>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col>
         <v-row justify="space-between">
@@ -95,56 +93,48 @@
             </v-card>
           </v-col>
           <v-col>
-            <v-card
-              height="210"
-              max-height="260"
-              scrollable
-              flat
-              class=" rounded-lg dk-grey--text"
-            >
-            <v-row>
-            <v-col lg='8'>
-
-              <v-card-text>
-                <h1>AB Furniture</h1>
-                <p>
-                  Dummy store information.....
-                  <br />What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry.......
-                </p>
-              </v-card-text>
-                  </v-col>
-              <v-col lg='4' class='text-center ma-auto'>
-              <!-- <v-card-actions class="py-4 justify-right"> -->
-                <v-btn
-                  depressed
-                  class="btn-wh"
-                  color="white--text rounded-lg btn-wh mb-6 matgreen"
-                  to="/reports"
-                >store Info</v-btn>
-                <br>
-                <v-btn
-                  depressed
-                  class="btn-wh"
-                  color="white--text rounded-lg matgreen"
-                  to="/reports"
-                >Visit Site</v-btn>
-              <!-- </v-card-actions> -->
-              </v-col>
-               </v-row>
+            <v-card height="210" max-height="260" scrollable flat class="rounded-lg dk-grey--text">
+              <v-row>
+                <v-col lg="8">
+                  <v-card-text>
+                    <h1>AB Furniture</h1>
+                    <p>
+                      Dummy store information.....
+                      <br />What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry.......
+                    </p>
+                  </v-card-text>
+                </v-col>
+                <v-col lg="4" class="text-center ma-auto">
+                  <!-- <v-card-actions class="py-4 justify-right"> -->
+                  <v-btn
+                    depressed
+                    class="btn-wh"
+                    color="white--text rounded-lg btn-wh mb-6 matgreen"
+                    to="/reports"
+                  >store Info</v-btn>
+                  <br />
+                  <v-btn
+                    depressed
+                    class="btn-wh"
+                    color="white--text rounded-lg matgreen"
+                    to="/reports"
+                  >Visit Site</v-btn>
+                  <!-- </v-card-actions> -->
+                </v-col>
+              </v-row>
             </v-card>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
- <v-row cols='12' class='pa-none partition-info'>
-        <v-col lg='1' sm='1' xs='1'>
-         <v-icon color="dk-grey" class="pa-none float-right">mdi mdi-chart-pie</v-icon></v-col>
-            <v-col lg='1'>
-          <h2 class='dk-grey--text partition-info'>
-              Reports
-          </h2>
-          </v-col>
-      </v-row>
+    <v-row cols="12" class="pa-none partition-info">
+      <v-col lg="1" sm="1" xs="1">
+        <v-icon color="dk-grey" class="pa-none float-right">mdi mdi-chart-pie</v-icon>
+      </v-col>
+      <v-col lg="1">
+        <h2 class="dk-grey--text partition-info">Reports</h2>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col class="pt-10">
         <line-chart></line-chart>
@@ -170,8 +160,7 @@ export default {
     };
   },
   methods: {},
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 <style scoped>
