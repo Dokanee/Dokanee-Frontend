@@ -38,7 +38,7 @@
           ></v-text-field>
               </v-col>
             </v-row>
-            <a style="color:#25AA94;text-decoration: none;" href="">Forgot Password?</a>
+            <a style="color:#25AA94;text-decoration: none;" href="#/auth/reset-password">Forgot Password?</a>
             <br/>
             <br/>
             <br/>

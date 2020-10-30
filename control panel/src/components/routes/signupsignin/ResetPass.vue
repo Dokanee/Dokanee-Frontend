@@ -5,15 +5,15 @@
         <v-card color="white" class="rounded-lg ma-auto " width="450" max-height="1000" style="padding:2.5%; !important">
          <div align="center">
               <v-img max-width='200' min-width="170" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
-              <p>Reset Password</p>
+              <p><b>Reset Password</b></p>
         </div>
-         <v-stepper v-model="e1"  :elevation="10">
-                <v-stepper-items>
+         <v-stepper v-model="e1" class="elevation-0">
+                <v-stepper-items style="border:hidden;box-shadow: none;">
                     
                 <v-stepper-content step="1">
                    <v-row
                    style="padding:13px">
-                        <v-text style="text-align:center">To reset password please enter you email below. you will receved an email with otp.</v-text>
+                        <v-text style="text-align:center">To reset password please enter you email below. you will receved an email with OTP.</v-text>
                         <v-text-field
                         class="pt-5" 
                         type="email" 
@@ -27,15 +27,16 @@
                     color="matgreen white--text"
                     @click="e1 = 2"
                     >
-                    Continue
+                    Submit
                     </v-btn>
                 </v-stepper-content>
 
                 <v-stepper-content step="2">
                     <v-row
                    style="padding:13px">
-                        <v-text style="text-align:center">To reset password please enter you email below. you will receved an email with otp.</v-text>
-                        <v-text-field type="email" label="Email"></v-text-field>
+                        <v-text style="text-align:center">A 6-digit OTP is sent to your email address (ihsonner@gmail.com)</v-text>
+                        <v-text-field class="centered-input  mt-5" type="number" outlined
+                        required placeholder="ENTER THE OTP" color="grey lighten-43"></v-text-field>
                     </v-row>
                     <v-btn
                     class="float-right"
@@ -45,27 +46,55 @@
                     Continue
                     </v-btn>
 
-                    <v-btn text>
-                    Cancel
+                    <v-btn text @click="e1 = 1">
+                    Back
                     </v-btn>
                 </v-stepper-content>
 
                 <v-stepper-content step="3">
                     <v-row
                    style="padding:13px">
-                        <v-text style="text-align:center">To reset password please enter you email below. you will receved an email with otp.</v-text>
-                        <v-text-field type="email" label="Email"></v-text-field>
+                        <v-text style="text-align:center; margin: 0 auto;">Please enter new secured password.</v-text>
+
                     </v-row>
+                        <v-text-field
+                        class="pt-5" 
+                        type="password" 
+                        label="New Password"
+                        outlined
+                        required
+                        dense></v-text-field>
+                        <v-text-field
+                        class="pt-2" 
+                        type="password" 
+                        label="Verify Password"
+                        outlined
+                        required
+                        dense></v-text-field>
                     <v-btn
                     class="float-right"
                     color="matgreen white--text"
-                    @click="e1 = 1"
+                    @click="e1 = 4"
                     >
-                    Continue
+                    Save
                     </v-btn>
 
-                    <v-btn text>
-                    Cancel
+                    <v-btn text @click="e1 = 2">
+                    Back
+                    </v-btn>
+                </v-stepper-content>
+
+                <v-stepper-content step="4">
+                    <v-row
+                   style="padding:13px"
+                   justify-content="center">
+                        <v-text style="text-align:center; color:#25AA94; margin: 0 auto;">Your password is changed successfully</v-text>
+                    </v-row>
+                    <v-btn text
+                    href="#/auth/signin"
+                    style="margin: 2px auto;display:block;padding:2px"
+                    >
+                    Back to login
                     </v-btn>
                 </v-stepper-content>
                 </v-stepper-items>
@@ -108,3 +137,9 @@
     },
   }
 </script>
+
+<style scoped>
+    .centered-input >>> input {
+      text-align: center
+    }
+</style>
