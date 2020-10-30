@@ -169,20 +169,21 @@ export default {
         .then((r) => {
           console.log(r.data);
           if (r.request.status == 200) {
-            ins.currentStore = r.data[0].storeName;
+            ins.currentStore = r.data[0];
             console.log(r.data[0].storeName);
             ins.stores = r.data;
+            ins.loadData(ins.currentStore);
           }
         });
     },
     loadData(e) {
       this.$store.commit("setStore", e);
-      this.loadProducsData();
+      this.loadProductsData();
     },
-    loadProducsData() {
+    loadProductsData() {
       // just for debugging
       console.log("changed");
-      // localizing the instance 
+      // localizing the instance
       let instance = this;
       // api call
       axios
@@ -199,12 +200,12 @@ export default {
             let catArr = [],
               catNameArr = [],
               prodArr = [];
-              // before getting individual names etc. 
-              // we save the full reponse in vues 
-              // for later need
-               this.$store.commit("setFullCatRes", data);
-              // putting each category id and name
-              // in their respective local arr
+            // before getting individual names etc.
+            // we save the full reponse in vues
+            // for later need
+            this.$store.commit("setFullCatRes", data);
+            // putting each category id and name
+            // in their respective local arr
             for (let c = 0; c < data.length; c++) {
               catArr.push(data[c].categoryId);
               catNameArr.push(data[c].categoryName);
@@ -214,9 +215,9 @@ export default {
             this.catNameArr = catNameArr;
             // storing category name in vuex state
             this.$store.commit("setCategoryNames", catNameArr);
-            
+
             console.log(catArr.length);
-            // for each category we call api 
+            // for each category we call api
             // seperately to get data for
             //  respective categories
             for (let c = 0; c < catArr.length; c++) {
