@@ -20,11 +20,14 @@
                         label="Email"
                         outlined
                         required
-                        dense></v-text-field>
+                        dense
+                        v-model="email"
+                        ></v-text-field>
                     </v-row>
                     <v-btn
                     class="float-right"
                     color="matgreen white--text"
+                    @click.passive="generateOTP()"
                     @click="e1 = 2"
                     >
                     Submit
@@ -34,9 +37,9 @@
                 <v-stepper-content step="2">
                     <v-row
                    style="padding:13px">
-                        <v-text style="text-align:center">A 6-digit OTP is sent to your email address (ihsonner@gmail.com)</v-text>
+                        <v-text style="text-align:center">A 6-digit OTP is sent to your email address ( {{ email }} )</v-text>
                         <v-text-field class="centered-input  mt-5" type="number" outlined
-                        required placeholder="ENTER THE OTP" color="grey lighten-43"></v-text-field>
+                        required placeholder="ENTER THE OTP" color="grey lighten-43" v-model="otp"></v-text-field>
                     </v-row>
                     <v-btn
                     class="float-right"
@@ -63,17 +66,20 @@
                         label="New Password"
                         outlined
                         required
-                        dense></v-text-field>
+                        dense
+                        v-model="newPassword"></v-text-field>
                         <v-text-field
                         class="pt-2" 
                         type="password" 
                         label="Verify Password"
                         outlined
                         required
-                        dense></v-text-field>
+                        dense
+                        v-model="varifyPassword"></v-text-field>
                     <v-btn
                     class="float-right"
                     color="matgreen white--text"
+                    @click.prevent="forgetPassChange()"
                     @click="e1 = 4"
                     >
                     Save
@@ -90,12 +96,15 @@
                    justify-content="center">
                         <v-text style="text-align:center; color:#25AA94; margin: 0 auto;">Your password is changed successfully</v-text>
                     </v-row>
-                    <v-btn text
+                    <v-col style="margin:3% auto; text-align:center">
+                      <v-btn
+                    centered
+                    class="elevation-0"
                     href="#/auth/signin"
-                    style="margin: 2px auto;display:block;padding:2px"
                     >
-                    Back to login
+                    Back to sign in
                     </v-btn>
+                    </v-col>
                 </v-stepper-content>
                 </v-stepper-items>
             </v-stepper>
@@ -129,12 +138,46 @@
 </template>
 
 <script>
+import Axios from 'axios'
   export default {
     data () {
       return {
         e1: 1,
+        email: '',
+        resEmail: '',
+        otp: '',
+        newPassword: '',
+        varifyPassword: '',
       }
     },
+    methods: {
+      generateOTP(){
+        console.log("Clicked ok")
+        Axios.post('https://dokanee-backend-monolithic.herokuapp.com/auth/generateOTP', {
+          email: this.email,
+        })
+        .then(function(res){
+         console.log(res.data);
+        })
+        .catch(function(error){
+          console.log(error,'error');
+        })
+      },
+      forgetPassChange(){
+        console.log('otp sent')
+        Axios.post('https://dokanee-backend-monolithic.herokuapp.com/auth/forgetPassChange', {
+          email: this.email,
+          newPassword: this.newPassword,
+          otp: this.otp,
+        })
+        .then(function(res){
+          console.log(res.data);
+        })
+        .catch(function(error){
+          console.log(error,'error');
+        })
+      },
+    }
   }
 </script>
 

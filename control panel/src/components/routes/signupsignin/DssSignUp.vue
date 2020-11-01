@@ -187,7 +187,13 @@
               required
                 ></v-checkbox>-->
                 <v-row>
-                  <a style="color:#2196F3;text-decoration: none;" href="#/auth/signin">Sign In Instead</a>
+                  <v-btn
+                    class="elevation-0"
+                    style="margin-left:3%"
+                    href="#/auth/signin"
+                    >
+                    Back to sign in
+                    </v-btn>
                   <v-col class="pb-0 pt-0">
                     <v-btn class="float-right" color="matgreen white--text" @click="submit">Register</v-btn>
                   </v-col>
