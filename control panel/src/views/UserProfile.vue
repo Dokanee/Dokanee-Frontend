@@ -16,11 +16,14 @@
                                             <v-list-item>
                                             <v-list-item-avatar size="100">
                                                 <v-file-input style="position:absolute;top:55px;left:37px"
+                                                 accept="image/*"
+                                                 v-model="profilePic"
                                                     filled
                                                     prepend-icon="mdi-camera"
+                                                    @change="uploadPic"
                                                 ></v-file-input>
                                                 <img
-                                                    src="https://www.w3schools.com/howto/img_avatar.png"
+                                                    :src=img
                                                     alt="Profile"
                                                 >
                                                 </v-list-item-avatar>
@@ -173,7 +176,9 @@ import DcpNavDrawer from '@/components/DcpNavDrawer.vue'
 export default {
     data() {
         return {
-        auth: 'Bearer ' + localStorage.getItem('access_token'),
+            auth: "Bearer " + localStorage.getItem("access_token"),
+            img: "https://www.w3schools.com/howto/img_avatar.png",
+            profilePic : null,
         userinfo:  {
             address: "",
             dob: "",
@@ -210,11 +215,9 @@ export default {
         return Math.floor(Math.random() * (max - min + 1)) + min
       },
       userinfoAPI () {
-          var self = this
-          axios.get('https://dokanee-backend-monolithic.herokuapp.com/profile/', { headers: { 'Authorization': this.auth }})
-          .then( response => {
-        console.log(response)
-        let d = response.data.body;
+         let d = this.$store.state.userinfo;
+        //  console.log("op")
+        //  console.log(d)
         this.userinfo = {
             address: d.address,
             dob: d.dob,
@@ -227,7 +230,33 @@ export default {
             storeIds: d.storeIds,
             userName: d.userName
         }
+        if(d.photoLink != ""){
+            let al = d.photoLink;
+               al = `${al.slice(0, al.indexOf("/upload/") + 8 )}c_scale,h_90,w_90/${al.slice( al.indexOf("/upload/") + 8 )}`;
+            //    console.log("photo " + al);
+            this.img = al
+        }
+  
+      },
+      uploadPic(){
+
+          let form = new FormData();
+          form.append('image',this.profilePic);
+
+  axios({
+    method: 'post',
+    url: 'https://dokanee-backend-monolithic.herokuapp.com/profile/add/image',
+    data: form,
+    headers: { Authorization: this.auth }
     })
+    .then(function (response) {
+        //handle success
+        console.log(response);
+    })
+    .catch(function (response) {
+        //handle error
+        console.log(response);
+    });
       }
     },
     components: {

@@ -1,1 +1,0 @@
-import {rt} from '../router/index.js'

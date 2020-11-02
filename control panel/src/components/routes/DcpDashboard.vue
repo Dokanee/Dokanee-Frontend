@@ -97,10 +97,9 @@
               <v-row>
                 <v-col lg="8">
                   <v-card-text>
-                    <h1>AB Furniture</h1>
+                    <h1> {{ storeName }}</h1>
                     <p>
-                      Dummy store information.....
-                      <br />What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry.......
+                      {{storeInfo}}
                     </p>
                   </v-card-text>
                 </v-col>
@@ -137,30 +136,52 @@
     </v-row>
     <v-row>
       <v-col class="pt-10">
-        <line-chart></line-chart>
+        <!-- <line-chart></line-chart> -->
+        <ap-chart></ap-chart>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import LineChart from "@/components/LineChartDashboard.vue";
+// import LineChart from "@/components/LineChartDashboard.vue";
+import ApChart from "@/components/routes/DcpDbChart";
 
 export default {
   name: "VueChartJS",
   components: {
-    LineChart,
+    ApChart,
   },
   data() {
     return {
-      customers: 47,
-      orders: 12,
-      sells: 70,
-      products: 199,
+      customers: 0,
+      orders: 0,
+      sells: 0,
+      products: 0,
+      storeName: "",
+      storeInfo: ""
     };
   },
-  methods: {},
-  mounted() {},
+  methods: {
+    initData(){
+       let stores = this.$store.state.storesInfo,
+           curStoreId = this.$store.state.currentSelectedStore;
+      for(let i=0; i< stores.length; i++){
+        if(stores[i].storeId === curStoreId){
+          this.storeName = stores[i].storeName
+          this.storeInfo = stores[i].storeInfo
+        }
+      }
+    }
+  },
+  mounted() {
+    this.initData();
+  },
+    watch: {
+    "$store.state.currentSelectedStore": function () {
+     this.initData();
+    },
+  },
 };
 </script>
 <style scoped>

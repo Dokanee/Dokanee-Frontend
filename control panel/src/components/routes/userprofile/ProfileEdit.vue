@@ -50,6 +50,29 @@ export default {
             userName: "ihsonnet"
         },
     }
+  },
+  methods: {
+        userinfoAPI () {
+         let d = this.$store.state.userinfo;
+        //  console.log("op")
+        //  console.log(d)
+        this.info = {
+            address: d.address,
+            dob: d.dob,
+            email: d.email,
+            firstName: d.firstName,
+            lastName: d.lastName,
+            nid: d.nid,
+            phone: d.phone,
+            photoLink: d.photoLink,
+            storeIds: d.storeIds,
+            userName: d.userName
+        }
+  
+      }
+  },
+  mounted(){
+      this.userinfoAPI();
   }
 }
 </script>
