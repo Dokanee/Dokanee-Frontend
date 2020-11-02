@@ -84,6 +84,11 @@ Vue.use(VueRouter)
         path: 'signout',
         component: () =>
     import(/* webpackChunkName: "signout" */ '@/components/routes/signupsignin/DssSignOut'),
+      },
+      {
+        path: 'reset-password',
+        component: () =>
+    import(/* webpackChunkName: "reset-pass" */ '@/components/routes/signupsignin/ResetPass'),
       }
     ]
   },{

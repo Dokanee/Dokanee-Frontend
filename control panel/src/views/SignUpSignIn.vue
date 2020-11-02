@@ -13,7 +13,7 @@
             </v-container>
         </v-main>
         <v-footer class="py-2 transparent" color=''>
-            <span class="ml-auto overline">Dokanee &copy;2020</span>
+            <span class="ma-auto overline">&copy; 2020 | Dokanee.com.bd</span>
         </v-footer>
     </v-app>
 </div>
@@ -26,11 +26,16 @@ export default {
 </script>
 <style scoped>
 .signupin-bg{
-    background: #ebeef0;
-    background: -webkit-linear-gradient(-45deg,#00b0ff ,#8bc34a);
+    background: #EEEEEE;
+    /* background: -webkit-linear-gradient(-45deg,#00b0ff ,#8bc34a); */
 }
 .tansparent{
     background: transparent !important;
     color: white !important;
+    text-align: center;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 </style>

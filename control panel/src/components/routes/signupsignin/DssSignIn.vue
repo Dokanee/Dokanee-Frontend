@@ -38,11 +38,19 @@
           ></v-text-field>
               </v-col>
             </v-row>
-            <a style="color:#25AA94;text-decoration: none;" href="">Forgot Password?</a>
+            <a style="color:#2196F3;text-decoration: none;" href="#/auth/reset-password">Forgot Password?</a>
             <br/>
             <br/>
             <br/>
-            <v-row> <a style="color:#2196F3;text-decoration: none;margin-left:2.5%" href="#/auth/signup">Create An Account</a>    <v-col class="pb-0 pt-0">
+            <v-row><v-btn
+                    class="elevation-0"
+                    style="margin-left:2.5%"
+                    href="#/auth/signup"
+                    >
+                    Create An Account
+                    </v-btn>
+                    <!-- <v-btn style="color:#666;text-decoration: none;margin-left:2.5%" href="#/auth/signup">Create An Account</v-btn> -->
+                    <v-col class="pb-0 pt-0">
         <v-btn class="float-right" color="matgreen white--text" @click="submit">Log In</v-btn>
      </v-col>
    </v-row>
