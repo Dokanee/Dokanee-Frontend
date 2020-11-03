@@ -23,12 +23,19 @@
             min-width="260"
             class="rounded-t-lg no-gutters"
           >
-            <v-card-text class="green-sea-btn white--text text-center rounded-t-lg">{{categorie}}</v-card-text>
+            <!-- <v-card-text class="green-sea-btn white--text text-center rounded-t-lg">{{categorie}}</v-card-text> -->
+                      <v-toolbar color="green-sea-btn" dark>
+            <v-toolbar-title>{{categorie}}</v-toolbar-title>
+             
+            <v-spacer></v-spacer>
+             <v-btn color="white black--text" depressed> <v-icon color="white--text">mdi-plus</v-icon>Add Product</v-btn>
+          </v-toolbar>
+
             <v-row class="pa-4">
               <v-col v-for="(item,j) in items[i]" :key="j" cols="6" lg="4" sm="4" xs="4">
                 <v-card elevation="1" @click="popUp(item)">
                   <v-hover v-slot:default="{ hover }">
-                    <!-- <v-img :src="item.img" class="cursr" :aspect-ratio="16/9"> -->
+                    <v-img :src="item.imageLink[0]" lazy-src="@/assets/no-image.svg" class="cursr" :aspect-ratio="16/9">
 
                     <v-expand-transition>
                       <div
@@ -36,7 +43,7 @@
                         class="orange darken-3 transition-fast-in-fast-out d-flex v-info--reveal white--text"
                       >{{ item.sellPrice}}</div>
                     </v-expand-transition>
-                    <!-- </v-img> -->
+                    </v-img>
                   </v-hover>
                   <v-card-text class="text-center pa-1 cursr bold">{{ item.productName }}</v-card-text>
                 </v-card>
@@ -93,6 +100,7 @@ export default {
       categories: this.$store.state.categoryNames,
       loaded: this.$store.state.productsLoaded,
       catArr: [],
+      prodImg: "@/assets/prod_no_img.png",
       catNameArr: [],
       currentData: {},
       editedProduct: {},

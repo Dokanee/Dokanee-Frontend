@@ -11,7 +11,9 @@ export default new Vuex.Store({
     products: [],
     categoryNames: ["", "", "", "", "", ""],
     productsLoaded: false,
-    fullCategoryResponse: []
+    fullCategoryResponse: [],
+    userinfo: {},
+    storesInfo: []
   },
   mutations: {
     bergerMenuToggle(state) {
@@ -21,7 +23,11 @@ export default new Vuex.Store({
     },
     setStore(state, payload) {
       state.currentSelectedStore = payload;
+      console.log("selected")
       console.log(state.currentSelectedStore)
+    },
+    setStoresInfo(state, payload) {
+      state.storesInfo = payload;
     },
     setProducts(state, payload) {
       state.products = payload;
@@ -35,6 +41,11 @@ export default new Vuex.Store({
     },
     setFullCatRes(state, payload) {
       state.fullCategoryResponse = payload;
+    },
+    setUserInfo(state, payload){
+      state.userinfo = payload;
+      console.log("user info")
+      console.log(state.userinfo)
     }
   },
   actions: {

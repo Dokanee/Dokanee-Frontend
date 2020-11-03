@@ -11,17 +11,17 @@
         <v-menu offset-y transition="slide-y-transition">
           <template v-slot:activator="{ on, attrs }">
             <v-avatar color="light-blue" size="36" dark v-bind="attrs" v-on="on">
-              <img src="https://www.w3schools.com/howto/img_avatar.png" alt="John" />
+              <img :src="prof" :alt=profileName />
             </v-avatar>
           </template>
           <v-card width="250">
             <v-list>
-              <v-list-item href="#/user/profile">
+              <v-list-item to="/user/profile">
                 <v-list-item-avatar>
-                  <img src="https://www.w3schools.com/howto/img_avatar.png" alt="John" />
+                  <img :src="prof" :alt=profileName />
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title>Abdullah Al Habib</v-list-item-title>
+                  <v-list-item-title>{{ profileName }}</v-list-item-title>
                   <v-list-item-subtitle>See your profile</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -112,7 +112,9 @@ export default {
       hover: false,
       stores: null,
       currentStore: "",
+      profileName: "",
       item: 1,
+      prof: "https://www.w3schools.com/howto/img_avatar.png",
       items: [
         {
           title: "Dashboard",
@@ -172,13 +174,40 @@ export default {
             ins.currentStore = r.data[0];
             console.log(r.data[0].storeName);
             ins.stores = r.data;
-            ins.loadData(ins.currentStore);
+            //  actual full stores data
+             this.$store.commit("setStoresInfo", r.data);
+            this.loadData(r.data[0].storeId);
           }
         });
     },
     loadData(e) {
+      console.log(e);
       this.$store.commit("setStore", e);
       this.loadProductsData();
+    },
+    userinfoAPI() {
+      console.log("called userinfo api");
+      var self = this;
+      axios
+        .get("https://dokanee-backend-monolithic.herokuapp.com/profile/", {
+          headers: { Authorization: this.auth },
+        })
+        .then((response) => {
+          console.log(response);
+          // if (response.statusCode == 200) {
+          let d = response.data.body;
+          self.$store.commit("setUserInfo", d);
+          if (d.photoLink != "") {
+            let al = d.photoLink;
+            al = `${al.slice(
+              0,
+              al.indexOf("/upload/") + 8
+            )}c_scale,h_30,w_30/${al.slice(al.indexOf("/upload/") + 8)}`;
+            console.log("photo " + al);
+            this.prof = al;
+          }
+          this.profileName = `${d.firstName} ${d.lastName}`;
+        });
     },
     loadProductsData() {
       // just for debugging
@@ -245,7 +274,13 @@ export default {
   },
   mounted() {
     this.getStoreInfo();
+    this.userinfoAPI();
   },
+  //  watch: {
+  //   "$store.state.userinfo": function () {
+  //     this.profileName = `${this.$store.state.userinfo.firstName} ${this.$store.state.userinfo.lastName}`;
+  //   },
+  // },
 };
 </script>
 <style scoped>
