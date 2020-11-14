@@ -190,7 +190,7 @@
                   <v-btn
                     class="elevation-0"
                     style="margin-left:3%"
-                    href="#/auth/signin"
+                    :to="{path:'signin'}"
                     >
                     Back to sign in
                     </v-btn>

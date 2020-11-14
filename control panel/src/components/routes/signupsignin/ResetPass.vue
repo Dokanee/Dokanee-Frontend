@@ -100,7 +100,7 @@
                       <v-btn
                     centered
                     class="elevation-0"
-                    href="#/auth/signin"
+                    :to="{path:'signin'}"
                     >
                     Back to sign in
                     </v-btn>
