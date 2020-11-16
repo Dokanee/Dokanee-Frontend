@@ -245,9 +245,9 @@ export default {
     methods: {
       validateAndContinue(){
        let v = this.$refs.form.validate();
-       if(v == true)
-this.checkDomain()
-         //this.steps = 2;
+        if(v == true)
+         //this.checkDomain()
+         this.steps = 2;
       },
       checkDomain(){
         axios.get(`https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/check?subDomain=${this.formData.subDomainName}`, { headers: { 'Authorization': this.auth }})

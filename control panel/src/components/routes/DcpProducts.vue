@@ -1,12 +1,12 @@
 <template>
   <div class="blue-grey lighten-5 container-dashboard">
-    <v-container fluid>
-      <v-row>
+    <v-container fluid v-show="def == true">
+      <!-- <v-row>
         <v-btn color="matgreen white--text" class="mr-8 ml-8 mt-4 mb-4">Add Categorie</v-btn>
-      </v-row>
-      <v-row>
+      </v-row>-->
+      <v-row >
         <v-col
-          v-for="(categorie, i) in categories"
+          v-for="(prodInfo,i) in items"
           :key="i"
           cols="12"
           lg="4"
@@ -24,25 +24,30 @@
             class="rounded-t-lg no-gutters"
           >
             <!-- <v-card-text class="green-sea-btn white--text text-center rounded-t-lg">{{categorie}}</v-card-text> -->
-                      <v-toolbar color="green-sea-btn" dark>
-            <v-toolbar-title>{{categorie}}</v-toolbar-title>
-             
-            <v-spacer></v-spacer>
-             <v-btn color="white black--text" depressed> <v-icon color="white--text">mdi-plus</v-icon>Add Product</v-btn>
-          </v-toolbar>
+            <v-toolbar color="green-sea-btn" dark>
+              <v-toolbar-title>{{prodInfo[0].categoryName}}</v-toolbar-title>
+
+              <v-spacer></v-spacer>
+             <v-btn color="white black--text" @click="dialog2 = true" depressed> <v-icon color="black--text">mdi-plus</v-icon></v-btn>
+              <!--  -->
+            </v-toolbar>
 
             <v-row class="pa-4">
               <v-col v-for="(item,j) in items[i]" :key="j" cols="6" lg="4" sm="4" xs="4">
                 <v-card elevation="1" @click="popUp(item)">
                   <v-hover v-slot:default="{ hover }">
-                    <v-img :src="item.imageLink[0]" lazy-src="@/assets/no-image.svg" class="cursr" :aspect-ratio="16/9">
-
-                    <v-expand-transition>
-                      <div
-                        v-if="hover"
-                        class="orange darken-3 transition-fast-in-fast-out d-flex v-info--reveal white--text"
-                      >{{ item.sellPrice}}</div>
-                    </v-expand-transition>
+                    <v-img
+                      :src="item.imageLink[0]"
+                      lazy-src="@/assets/no-image.svg"
+                      class="cursr"
+                      :aspect-ratio="16/9"
+                    >
+                      <v-expand-transition>
+                        <div
+                          v-if="hover"
+                          class="orange darken-3 transition-fast-in-fast-out d-flex v-info--reveal white--text"
+                        >{{ item.sellPrice}}</div>
+                      </v-expand-transition>
                     </v-img>
                   </v-hover>
                   <v-card-text class="text-center pa-1 cursr bold">{{ item.productName }}</v-card-text>
@@ -50,11 +55,21 @@
               </v-col>
             </v-row>
             <v-card-actions>
-              <v-btn text outlined color="green-sea-btn2" class="ma-auto text-center">See More</v-btn>
+              <v-btn text outlined color="green-sea-btn2" class="ma-auto text-center" @click="seeMore(items[i])">See More</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
+      <!-- <v-row v-show="def == false">
+<v-row cols="12">
+         <v-btn color="matgreen white--text" @click="def = true" class="mr-8 ml-8 mt-4 mb-4">Back</v-btn>
+</v-row>
+<v-row>
+   <v-col cols="12">
+  <dcp-products-more :key="generateUniqueKey()" :productsData=prd></dcp-products-more>
+   </v-col>
+</v-row>
+      </v-row> -->
       <div class="modal" v-show="dialog">
         <v-card width="800" height="600" class="text-center ma-auto">
           <v-card-title class="headline grey lighten-2">Product Info</v-card-title>
@@ -84,20 +99,108 @@
           </v-card-actions>
         </v-card>
       </div>
+      <!-- end of edit product custom modal  -->
+      <div class="modal" v-show="dialog2">
+        <v-card width="800" height="600" class="text-center ma-auto scroll">
+          <v-card-title class="headline grey lighten-2">Product Info</v-card-title>
+          <v-container>
+                                       <v-form ref="form" v-model="productsForm" lazy-validation class="pa-4">
+            <v-row>
+                        <v-col cols="12" sm="12" lg="6">
+                          <v-text-field label="Product Name" required v-model="formData.productName"></v-text-field>
+                        </v-col>
+                        <v-col cols="12"  sm="12" lg="6">
+                          <v-text-field label="Price"  type="number" required v-model="formData.sellPrice"></v-text-field>
+                        </v-col>
+            </v-row>
+             <v-row>
+                        <v-col cols="12" sm="12" lg="6">
+                          <v-text-field label="Discount Price" type="number" required v-model="formData.discountPrice"></v-text-field>
+                        </v-col>
+                        <v-col cols="12"  sm="12" lg="6">
+                          <v-text-field label="Quantity"  type="number"  required v-model="formData.quantity"></v-text-field>
+                        </v-col>
+            </v-row>
+                          <v-row>
+                        <v-col cols="12" sm="12" lg="6">
+                          <v-text-field label="Brand" required v-model="formData.brand"></v-text-field>
+                        </v-col>
+                        <v-col cols="12"  sm="12" lg="6">
+                          <v-text-field label="Color" required v-model="formData.colour"></v-text-field>
+                        </v-col>
+            </v-row>
+    
+                          <v-row>
+                        <v-col cols="12" sm="12" lg="6">
+                          <!-- <v-text-field label="Featured" required v-model="formData.featured"></v-text-field> -->
+                           <v-select
+          color="teal darken--3"
+          label="Featured"
+          v-model="formData.featured"
+          :items="trueFalseDm"
+          item-text="name"
+          item-value="value"
+        ></v-select>
+                        </v-col>
+                        <v-col cols="12"  sm="12" lg="6">
+                      <v-select
+                       color="teal darken--3"
+          label="In Stock"
+          v-model="formData.inStock"
+          :items="trueFalseDm"
+          item-text="name"
+          item-value="value"
+        ></v-select>                        </v-col>
+            </v-row>
+  <v-row>
+                        <v-col cols="12">
+                          <v-text-field label="Product Description" required v-model="formData.description"></v-text-field>
+                        </v-col>
+            </v-row>
+   
+                          <v-row>
+                        <v-col cols="12" sm="12" lg="6">
+                          <v-text-field label="Meta Description" required v-model="formData.metaDescription"></v-text-field>
+                        </v-col>
+                        <v-col cols="12"  sm="12" lg="6">
+                          <v-text-field label="Short Description" required v-model="formData.shortDescription"></v-text-field>
+                        </v-col>
+            </v-row>
+             </v-form>
+          </v-container>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn depressed color="teal darken--3 white--text" @click="dialog2 = false">Add</v-btn>
+          </v-card-actions>
+        </v-card>
+      </div>
+    </v-container>
+    <v-container v-show="def == false">
+<v-row cols="12">
+         <v-btn color="matgreen white--text" @click="def = true" class="mr-8 ml-8 mt-4 mb-4"><v-icon color="white">mdi-arrow-left</v-icon> Back</v-btn>
+</v-row>
+<v-row>
+   <v-col cols="12">
+  <dcp-products-more :key="generateUniqueKey()" :productsData=prd></dcp-products-more>
+   </v-col>
+</v-row>
+  
     </v-container>
   </div>
 </template>
 <script>
-import DcpCat from "@/components/routes/DcpCategory.vue";
+import DcpProductsMore from "@/components/routes/DcpProductsMore.vue";
 import axios from "axios";
 export default {
   components: {
-    DcpCat,
+    DcpProductsMore,
   },
   data() {
     return {
       auth: "Bearer " + localStorage.getItem("access_token"),
-      categories: this.$store.state.categoryNames,
+      def: true,
+      categories: this.$store.state.fullCategoryResponse,
       loaded: this.$store.state.productsLoaded,
       catArr: [],
       prodImg: "@/assets/prod_no_img.png",
@@ -105,7 +208,46 @@ export default {
       currentData: {},
       editedProduct: {},
       dialog: false,
+       dialog2: false,
+      productsForm: false,
       items: [],
+      prd:null,
+      trueFalseDm: [
+     {
+       name: "Yes",
+        value: true
+      },
+    {
+      name: "No",
+        value: false
+      }
+      ],
+      formData: {
+        allowMaxQtyToBuy: 0,
+        brand: "",
+        categoryId: "",
+        colour: "",
+        description: "",
+        discountPrice: 0,
+        featured: true,
+        inStock: true,
+        metaDescription: "",
+        metaKeywords: "",
+        productName: "",
+        quantity: 0,
+        returnable: true,
+        sellPrice: 0,
+        shortDescription: "",
+        size: 0,
+        sku: "",
+        slug: "",
+        storeId: "",
+        subCategoryId: "",
+        tag: "",
+        types: "",
+        weight: 0,
+        weightUnit: "",
+      },
     };
   },
   methods: {
@@ -116,8 +258,19 @@ export default {
     initData() {
       let state = this.$store.state;
       this.items = state.products;
-      this.categories = state.categoryNames;
+      this.categories = state.fullCategoryResponse;
+      console.log("ctgr")
+      console.log(this.items)
     },
+    seeMore(prods){
+      console.log("testing")
+      console.log(prods)
+    this.def = false;
+    this.prd = prods;
+    },
+     generateUniqueKey() {
+              return Date.now().toString();
+         }
   },
   watch: {
     "$store.state.productsLoaded": function () {
@@ -126,8 +279,8 @@ export default {
     "$store.state.products": function () {
       this.items = this.$store.state.products;
     },
-    "$store.state.categoryNames": function () {
-      this.categories = this.$store.state.categoryNames;
+    "$store.state.fullCategoryResponse": function () {
+      this.categories = this.$store.state.fullCategoryResponse;
     },
   },
   mounted() {
@@ -147,5 +300,8 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 5000;
+}
+.scroll{
+  overflow-y: auto;
 }
 </style>

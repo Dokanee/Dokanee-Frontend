@@ -183,6 +183,7 @@ export default {
     loadData(e) {
       console.log(e);
       this.$store.commit("setStore", e);
+      this.$store.commit("setProductsLoaded", true);
       this.loadProductsData();
     },
     userinfoAPI() {
@@ -230,8 +231,10 @@ export default {
               catNameArr = [],
               prodArr = [];
             // before getting individual names etc.
-            // we save the full reponse in vues
+            // we save the full reponse in vuex
             // for later need
+            console.log("dkne")
+            console.log(data)
             this.$store.commit("setFullCatRes", data);
             // putting each category id and name
             // in their respective local arr
@@ -259,9 +262,13 @@ export default {
                   console.log(r.data);
                   //  if status ok
                   if (r.data.statusCode == 200) {
+                    let pd = r.data.body;
+                    let x = pd[0].categoryId;
+                    
+                      pd[0].categoryName = catNameArr[catArr.indexOf(pd[0].categoryId)];
                     //  we store them in previously
                     //  created local array
-                    prodArr.push(r.data.body);
+                    prodArr.push(pd);
                   }
                 });
             }
