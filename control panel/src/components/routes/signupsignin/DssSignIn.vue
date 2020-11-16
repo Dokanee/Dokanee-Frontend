@@ -38,7 +38,7 @@
           ></v-text-field>
               </v-col>
             </v-row>
-            <a style="color:#2196F3;text-decoration: none;" href="#/auth/reset-password">Forgot Password?</a>
+            <router-link style="color:#2196F3;text-decoration: none;"  :to="{path:'reset-password'}">Forgot Password?</router-link>
             <br/>
             <br/>
             <br/>

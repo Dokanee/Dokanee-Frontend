@@ -137,8 +137,11 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+import auth from "@/auth/index.js";
 export default {
   data: () => ({
+    auth: "Bearer " + localStorage.getItem("access_token"),
     dialog: false,
     dialog2: false,
     employees: [
@@ -214,6 +217,27 @@ export default {
       },
     ],
   }),
+  mounted() {
+    console.log('site loaded');
+    this.getEmployees();
+    console.log(this.$store.state.currentSelectedStore);
+  },
+  methods: {
+    getEmployees(){
+      let ins = this
+      console.log('employees loaded')
+      axios.get(
+          `https://dokanee-backend-monolithic.herokuapp.com/dashboard/employee/?storeId=${this.$store.state.currentSelectedStore}`,
+          { headers: { Authorization: this.auth } 
+        })
+      .then(function(res){
+        console.log(res.data);
+      })
+      .catch(function(e){
+        console.log(e,'error');
+      })
+    }
+  }
 };
 </script>
 <style scoped>
