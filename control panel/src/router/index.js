@@ -25,6 +25,16 @@ Vue.use(VueRouter)
     import(/* webpackChunkName: "products" */ '@/components/routes/DcpProducts')
       },
       {
+        path: '/cpanel/pos/new-sale',
+        component: () =>
+    import(/* webpackChunkName: "new" */ '@/components/routes/pos/NewSale'),
+      },
+      {
+        path: '/cpanel/pos/all-sales',
+        component: () =>
+    import(/* webpackChunkName: "all" */ '@/components/routes/pos/AllSales'),
+      },
+      {
         path : '/cpanel/categories',
         component: () =>
     import(/* webpackChunkName: "products" */ '@/components/routes/DcpCategories')
@@ -65,7 +75,8 @@ Vue.use(VueRouter)
     import(/* webpackChunkName: "products" */ '@/components/routes/DcpHelp')
       }
     ]
-  },{
+  },
+  {
     path: '/auth',
     component: () =>
     import(/* webpackChunkName: "tmp" */ '@/views/SignUpSignIn'),
