@@ -11,7 +11,7 @@ export default new Vuex.Store({
     products: [],
     categoryNames: ["", "", "", "", "", ""],
     productsLoaded: false,
-    fullCategoryResponse: [],
+    fullCategoryResponse: ["", "", "", "", "", ""],
     userinfo: {},
     storesInfo: []
   },

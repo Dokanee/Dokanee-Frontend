@@ -7,7 +7,56 @@
             <v-toolbar-title>Categories</v-toolbar-title>
              
             <v-spacer></v-spacer>
-             <v-btn color="white black--text" depressed> <v-icon color="white--text">mdi-plus</v-icon>Add Category</v-btn>
+             <!-- <v-btn color="white black--text" v-bind="attrs" v-on="on" depressed> <v-icon color="white--text">mdi-plus</v-icon>Add Category</v-btn> -->
+          <!-- <v-row justify="right"> -->
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+    >
+      <template v-slot:activator="{ on, attrs }">
+                     <v-btn color="white black--text" v-bind="attrs" v-on="on" depressed> <v-icon color="white--text">mdi-plus</v-icon>Add Category</v-btn>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">Add Category</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                cols="12"
+              >
+                <v-text-field
+                  label="Category Name"
+                  required
+                  v-model="formCategoryName"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="addCategory"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  <!-- </v-row> -->
           </v-toolbar>
 
           <v-list>
@@ -61,6 +110,8 @@ export default {
   data() {
     return {
       categoryData: [],
+      formCategoryName : "",
+      dialog: false,
       items: [
         {
           action: "mdi-ticket",

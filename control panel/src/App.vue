@@ -33,4 +33,8 @@ opacity: .8;
 position: absolute;
 width: 100%;
 }
+table.v-table thead th {
+      font-size: 20px !important;
+  font-weight: bold;
+ }
 </style>

@@ -45,7 +45,7 @@
             <v-row><v-btn
                     class="elevation-0"
                     style="margin-left:2.5%"
-                    :to="{path:'signup'}"
+                    to="signup"
                     >
                     Create An Account
                     </v-btn>
@@ -128,7 +128,7 @@ export default {
   },
   mounted(){
     let token = localStorage.getItem('access_token');
-    if(token != "") {
+    if(token != null) {
   console.log("already logged in");
   // window.location.href = "http://localhost:8080/#/cpanel/dashboard";
   this.$router.push("/cpanel/dashboard");

@@ -37,7 +37,8 @@ export default {
   },
   created() {
  let token = localStorage.getItem("access_token");
-    if (token == "")
+ console.log(token)
+    if (token == null)
       //  window.location.href = "http://localhost:8080/auth/signin";
       this.$router.push("/auth/signin");  }
 };

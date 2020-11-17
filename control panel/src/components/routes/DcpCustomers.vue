@@ -13,7 +13,7 @@
           class="elevation-0 ma-2 pa-3"
         >
           <template v-slot:top>
-            <v-toolbar :elevation="0" flat rounded color="white">
+            <v-toolbar :elevation="0" flat rounded color="transparent">
               <v-toolbar-title>Customers</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-btn color="matblue" dark class="mb-2">{{person.length}}</v-btn>
@@ -86,7 +86,7 @@
           </template>-->
           <template v-slot:item.fullname="{ item }">
             <span>
-              <v-avatar size="35" style="margin: 8px 8px 8px 0px;border:1px solid #ECEFF1">
+              <v-avatar size="55" style="margin: 8px 8px 8px 0px;border:1px solid #ECEFF1">
                 <img :src="item.avater" />
               </v-avatar>
               {{item.first_name}} {{item.last_name}}
@@ -401,8 +401,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .v-slot {
   display: inline-block;
 }
+table {
+    border-collapse: separate !important;
+    border-spacing: 0 1.3rem !important;
+}
+.theme--light.v-data-table > .v-data-table__wrapper > table > tbody > tr {
+    height: 110px !important;
+    border-radius: .7rem;
+     background: #fff !important;
+         box-shadow: 0 4px 20px 0 rgba(0,0,0,.05) !important;
+}
+.v-data-table{
+  background: #f4f4f4 !important;
+}
+
+
 </style>
