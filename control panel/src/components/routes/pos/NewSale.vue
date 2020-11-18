@@ -35,41 +35,56 @@
                                         </v-toolbar>
                                     </template>                                
                                     <template v-slot:default="props">
-                                        <v-content class="pa-5">
+                                        <v-main class="pa-5">
                                         <v-row>
                                         <v-col
                                             v-for="item in props.items"
-                                            :key="item.name"
+                                            :key="item.productName"
                                             cols="12"
-                                            sm="6"
-                                            md="6"
-                                            lg="4"
+                                            sm="4"
+                                            md="4"
+                                            lg="3"
                                         >
-                                            
-                                            <v-card>
+                                            <v-hover
+                                              v-slot="{ hover }"
+                                            >
+                                            <v-card @click="addToCart(item.imageLink,item.productName,item.sellPrice)" class="item-selection" :elevation="hover ? 5 : 0" style="text-align:center; cursor:pointer" flat>
                                                 <v-img
                                                 lazy-src="https://picsum.photos/id/11/10/6"
                                                 aspect-ratio="1"
-                                                src="https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg"
+                                                style="height:100px"
+                                                :src="item.imageLink"
                                                 ></v-img>
-                                            <v-card-title class="subheading font-weight-normal">
-                                                {{ item.name }}
+                                            <v-card-title class="subheading font-weight-normal pa-3" style="font-size:16px; display:block;text-align:center; height:80px; box-sizing:border-box; overflow:hidden">
+                                                {{ item.productName }}
                                             </v-card-title>
 
                                             <v-divider></v-divider>
-
-                                                <v-list-item-content class="pa-5" style="display:block">
-                                                    Price: {{ item.name }} <br>
-                                                    Stock: {{ item.name }}
+                                            <v-card-content>
+                                                <v-list-item-content class="pa-3" style="display:block;font-size:12px">
+                                                    <v-chip
+                                                      :color="getColor(item.inStock)"
+                                                      style="font-size:12px"
+                                                      dark
+                                                    >
+                                                      {{getStockAns( item.inStock) }}
+                                                    </v-chip>
+                                                    <v-chip
+                                                    color="matblue"
+                                                    style="color:white">
+                                                      &#2547; {{ item.sellPrice }}
+                                                    </v-chip>
                                                 </v-list-item-content>
+                                                </v-card-content>
                                             </v-card>
+                                          </v-hover>
                                         </v-col>
                                         </v-row>
-                                        </v-content>
+                                        </v-main>
                                     </template>
 
                                     <template v-slot:footer>
-                                        <v-content class="pa-5">
+                                        <v-main class="pa-5">
                                         <v-row
                                         class="mt-2"
                                         align="center"
@@ -128,7 +143,7 @@
                                             <v-icon>mdi-chevron-right</v-icon>
                                         </v-btn>
                                         </v-row>
-                                        </v-content>
+                                        </v-main>
                                     </template>
                             </v-data-iterator>
                         </v-card>
@@ -139,20 +154,73 @@
                             <v-card flat style="width:500px">
                             <div class="block">
                             <v-card-title>
-                                    Profile
+                                    Product Cart
                             </v-card-title>
-                            <v-card-content>
-                                <div  class="pa-5" align="center">
-                                        
-                                </div>
-                            </v-card-content>
+                            <hr>
+                            <v-container>
+                            
+                            <v-row  cols="12" class="trow" v-for="i in selingCart" :key="i.name">
+                                  <v-card class="cart-item mt-3 pa-2" width="400px">
+                                  <v-row no-gutters>
+                                  <v-col
+                                  sm="3"
+                                  md="3">
+                                    <v-img
+                                    lazy-src="https://picsum.photos/id/11/10/6"
+                                    aspect-ratio="1"
+                                    style=""
+                                    class="button-full mr-5"
+                                    :src="i.ilink"
+                                    ></v-img>
+                                  </v-col>
+                                  <v-col
+                                  sm="9"
+                                  md="9">
+                                      <v-row>
+                                        {{ i.name }}
+                                      </v-row>
+                                      <v-row>
+                                        <v-col>
+                                            <input type="number" class="quantity" v-model="i.quantity">
+                                        </v-col>
+                                        <v-col>
+                                          <v-chip color="matblue" style="color:white"> &#2547; {{ i.quantity * i.price }}</v-chip>
+                                        </v-col>
+                                      </v-row>
+                                  </v-col>
+                                  </v-row>
+                                  <v-chip @click="deleteFromCart(i)" class="close">x</v-chip>
+                                  </v-card>
+                                </v-row>
+
+                                <v-row>
+                                  <v-row no-gutters class="mt-3 pa-2" width="400px">
+                                  <v-col
+                                  sm="3"
+                                  md="3">
+                                    
+                                  </v-col>
+                                  <v-col
+                                  sm="9"
+                                  md="9">
+                                      <v-row>
+                                        <v-col>
+                                            <b>Total:</b>
+                                        </v-col>
+                                        <v-col>
+                                            <b>&#2547; {{ total }}</b>
+                                        </v-col>
+                                      </v-row>
+                                  </v-col>
+                                  </v-row>
+                                </v-row>
+                            <br>
+                            <v-btn block color="matgreen" class="button-full">
+                              Complete Payment
+                            </v-btn>
+                            </v-container>
                             </div>
                         </v-card>
-                        </v-row>
-                        <v-row class="ma-1">
-                           <v-btn>
-                               Sell It
-                           </v-btn>
                         </v-row>
                     </v-col>
                 </v-row>
@@ -165,133 +233,105 @@ export default {
 data () {
         
     return {
-        itemsPerPageArray: [4, 8, 12],
+        productQuantity: "1",
+        itemsPerPageArray: [4, 8, 12, 50],
         search: '',
         filter: {},
         sortDesc: false,
         page: 1,
-        itemsPerPage: 4,
+        itemsPerPage: 8,
         sortBy: 'name',
         keys: [
-          'Name',
-          'Calories',
-          'Fat',
-          'Carbs',
-          'Protein',
-          'Sodium',
-          'Calcium',
-          'Iron',
+          'imageLink',
+          'productName',
+          'sellPrice',
+          'inStock',
         ],
+        selingCart: [],
         items: [
           {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            sodium: 87,
-            calcium: '14%',
-            iron: '1%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Powder 2x',
+            sellPrice: 230,
+            inStock: true,
           },
           {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            sodium: 129,
-            calcium: '8%',
-            iron: '1%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Powder',
+            sellPrice: 230,
+            inStock: true,
           },
           {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            sodium: 337,
-            calcium: '6%',
-            iron: '7%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white',
+            sellPrice: 230,
+            inStock: false,
           },
           {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            sodium: 413,
-            calcium: '3%',
-            iron: '8%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'RFL Table',
+            sellPrice: 230,
+            inStock: true,
           },
           {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            sodium: 327,
-            calcium: '7%',
-            iron: '16%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Power 2x Max Pro Lite',
+            sellPrice: 230,
+            inStock: false,
           },
           {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            sodium: 50,
-            calcium: '0%',
-            iron: '0%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Power 2x',
+            sellPrice: 230,
+            inStock: true,
           },
           {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            sodium: 38,
-            calcium: '0%',
-            iron: '2%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Power 2x',
+            sellPrice: 230,
+            inStock: true,
           },
           {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            sodium: 562,
-            calcium: '0%',
-            iron: '45%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Power 2x',
+            sellPrice: 230,
+            inStock: true,
           },
           {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            sodium: 326,
-            calcium: '2%',
-            iron: '22%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Power 2x',
+            sellPrice: 230,
+            inStock: true,
           },
           {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            sodium: 54,
-            calcium: '12%',
-            iron: '6%',
+            imageLink: 'https://wineguide.wein.plus/uploads/editor/images/6739/59c28a0334395_q80.jpg',
+            productName:'Rin Power white Power 2x',
+            sellPrice: 230,
+            inStock: true,
           },
+          
         ],
       }
     },
+    // created() {
+    //   EventBus.$on("addToCart", (payload) => {
+    //     this.selingCart.push(payload);
+    //   });
+    // },
     computed: {
       numberOfPages () {
         return Math.ceil(this.items.length / this.itemsPerPage)
       },
       filteredKeys () {
         return this.keys.filter(key => key !== 'Name')
+      },
+      total() {
+        var total = 0;
+        for(var index=0;index<this.selingCart.length;index++){
+          var i = this.selingCart[index];
+          total += i.quantity * i.price;
+        }
+        return total;
       },
     },
     methods: {
@@ -304,6 +344,21 @@ data () {
       updateItemsPerPage (number) {
         this.itemsPerPage = number
       },
+      getColor (c) {
+        if (c == false) return '#ea5455'
+        else return '#28c76f'
+      },
+      getStockAns(c){
+        if (c == false) return 'Unavailable'
+        else return 'Available'
+      },
+      addToCart(a,b,c) {
+        this.selingCart.push({ilink: a,name: b, price: c,quantity: 1});
+        console.log(this.selingCart);
+      },
+      deleteFromCart(i){
+        this.selingCart.splice(i, 1);
+      }
     },
 }
 </script>
@@ -318,5 +373,42 @@ button {
     font-size: small;
     justify-content: center;
     margin: 5px;
+}
+.item-selection {
+  border: 1px solid #ddd;
+}
+
+.cart-item{
+  border: 1px solid #ddd;
+}
+.quantity {
+  width: 50px;
+  height: 30px;
+  border: 1px solid #ddd;
+  padding: 3px;
+}
+.trow {
+ box-sizing: border-box;
+ overflow: hidden;
+ margin: auto;
+ position: relative;
+}
+.close{
+  background-color: thistle;
+  color: red;  
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.close:hover{
+  cursor: pointer;
+}
+.button-full {
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: auto;
+  color:white;
 }
 </style>

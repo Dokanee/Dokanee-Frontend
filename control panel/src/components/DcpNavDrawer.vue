@@ -121,6 +121,7 @@ export default {
           href: "/cpanel/dashboard",
           icon: "mdi-view-dashboard",
         },
+        { title: "Point Of Sales", href: "/cpanel/pos/new-sale", icon: "mdi-point-of-sale" },
         { title: "Products", href: "/cpanel/products", icon: "mdi-shopping" },
         {
           title: "Categories",
