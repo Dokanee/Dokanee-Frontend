@@ -30,7 +30,7 @@
                 <v-text-field
                   label="Category Name"
                   required
-                  v-model="formCategoryName"
+                  v-model="formCategoryName.categoryName"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -106,11 +106,22 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
+         auth: "Bearer " + localStorage.getItem("access_token"),
+         options : {
+  headers: {
+      'Content-Type': 'application/json',
+       Authorization: this.auth 
+  }
+},
       categoryData: [],
-      formCategoryName : "",
+      formCategoryName : {
+  categoryName: null,
+  slug: "string"
+},
       dialog: false,
       items: [
         {
@@ -166,6 +177,26 @@ export default {
       let state = this.$store.state;
       this.categoryData = state.fullCategoryResponse;
     },
+    addCategory(){
+    // 
+    // 
+    axios({
+    method: 'post',
+    url: `https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/${this.$store.state.currentSelectedStore}/category`,
+    data: this.formCategoryName,
+    headers: { Authorization: this.auth,
+    'Content-Type': 'application/json'
+    }
+    })
+    .then(function (response) {
+        //handle success
+        alert(`Category ${response.data}`);
+    })
+    .catch(function (response) {
+        //handle error
+        alert("Couldn't Add Cateogry\n Try again");
+    });
+    }
   },
   mounted() {
     this.initData();

@@ -1,8 +1,16 @@
 <template>
   <v-container class="full-height" fluid>
+    
     <v-row style="margin-top:3%; vertical-align: middle; !important" align="center" justify="center">
       <v-col cols="12" sm="8" md="8">
         <v-card color="white" class="rounded-lg ma-auto " width="450" max-height="1000" style="padding:2.5%; !important">
+       <v-progress-linear
+        :active="dialog"
+        :indeterminate="dialog"
+        absolute
+        top
+        color="matgreen"
+      ></v-progress-linear>
          <div align="center">
               <v-img max-width='200' min-width="170" aspect-ratio=".5" height='100' src='@/assets/logo.png'></v-img>
               <p>Login with your Dokanee Account</p>
@@ -58,14 +66,13 @@
         </v-card>
       </v-col>
     </v-row>
-     <v-dialog
+     <!-- <v-dialog
       v-model="dialog"
       hide-overlay
       persistent
       width="300"
       height="300"
     >
-    <!--   For notification warning -->
       <v-card
         color="primary"
         dark
@@ -79,8 +86,7 @@
           ></v-progress-linear>
         </v-card-text>
       </v-card>
-      <!--  -->
-    </v-dialog>
+    </v-dialog> -->
   </v-container>
 </template>
 <script>

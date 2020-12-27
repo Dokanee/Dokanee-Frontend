@@ -31,6 +31,7 @@ export default new Vuex.Store({
     },
     setProducts(state, payload) {
       state.products = payload;
+      console.log("full infos")
       console.log(state.products)
     },
     setProductsLoaded(state, payload) {
@@ -40,7 +41,10 @@ export default new Vuex.Store({
       state.categoryNames = payload;
     },
     setFullCatRes(state, payload) {
+
       state.fullCategoryResponse = payload;
+      console.log("Full cat res")
+      console.log(state.fullCategoryResponse)
     },
     setUserInfo(state, payload){
       state.userinfo = payload;

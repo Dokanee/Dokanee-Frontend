@@ -12,8 +12,9 @@ export default {
 }
 </script>
 <style>
-*{
-  font-family: sans-serif, Helvetica, Arial !important;
+body{
+ font-family: Montserrat,Helvetica,Arial,sans-serif !important;
+ 
 }
 .partition-info{
   line-height: 1 !important;

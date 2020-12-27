@@ -2,11 +2,11 @@
   <div class="blue-grey lighten-5 container-dashboard">
     <v-container fluid v-show="def == true">
       <!-- <v-row>
-        <v-btn color="matgreen white--text" class="mr-8 ml-8 mt-4 mb-4">Add Categorie</v-btn>
+        <v-btn color="teal white--text" class="mr-8 ml-8 mt-4 mb-4">Add Categorie</v-btn>
       </v-row>-->
       <v-row >
         <v-col
-          v-for="(prodInfo,i) in items"
+          v-for="(categoryInfo,i) in items"
           :key="i"
           cols="12"
           lg="4"
@@ -24,8 +24,8 @@
             class="rounded-t-lg no-gutters"
           >
             <!-- <v-card-text class="green-sea-btn white--text text-center rounded-t-lg">{{categorie}}</v-card-text> -->
-            <v-toolbar color="green-sea-btn" dark>
-              <v-toolbar-title>{{prodInfo[0].categoryName}}</v-toolbar-title>
+            <v-toolbar color="teal" dark>
+              <v-toolbar-title>{{categoryInfo.categoryName}}</v-toolbar-title>
 
               <v-spacer></v-spacer>
              <v-btn color="white black--text" @click="dialog2 = true" depressed> <v-icon color="black--text">mdi-plus</v-icon></v-btn>
@@ -33,8 +33,9 @@
             </v-toolbar>
 
             <v-row class="pa-4">
-              <v-col v-for="(item,j) in items[i]" :key="j" cols="6" lg="4" sm="4" xs="4">
-                <v-card elevation="1" @click="popUp(item)">
+              <v-col v-for="(item,j) in categoryInfo.products" :key="j" cols="6" lg="4" sm="4" xs="4">
+                <v-card flat @click="popUp(item)" class="product-card">
+                    <v-card-content>
                   <v-hover v-slot:default="{ hover }">
                     <v-img
                       :src="item.imageLink[0]"
@@ -45,24 +46,31 @@
                       <v-expand-transition>
                         <div
                           v-if="hover"
-                          class="orange darken-3 transition-fast-in-fast-out d-flex v-info--reveal white--text"
-                        >{{ item.sellPrice}}</div>
+                          class="matblue transition-fast-in-fast-out d-flex v-info--reveal white--text"
+                        > &#2547; {{ item.sellPrice}}</div>
                       </v-expand-transition>
                     </v-img>
                   </v-hover>
-                  <v-card-text class="text-center pa-1 cursr bold">{{ item.productName }}</v-card-text>
+                 <v-card-title class="subheading">
+{{ item.productName }}</v-card-title >
+<!-- <v-chip                                       class="ma-auto text-center"
+                                                    color="matblue"
+                                                    style="color:white">
+                                                      &#2547; {{ item.sellPrice }}
+                                                    </v-chip> -->
+                                                    </v-card-content>
                 </v-card>
               </v-col>
             </v-row>
             <v-card-actions>
-              <v-btn text outlined color="green-sea-btn2" class="ma-auto text-center" @click="seeMore(items[i])">See More</v-btn>
+              <v-btn text outlined color="green-sea-btn2" class="ma-auto text-center" @click="seeMore(items[i],items)">See More</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
       <!-- <v-row v-show="def == false">
 <v-row cols="12">
-         <v-btn color="matgreen white--text" @click="def = true" class="mr-8 ml-8 mt-4 mb-4">Back</v-btn>
+         <v-btn color="teal white--text" @click="def = true" class="mr-8 ml-8 mt-4 mb-4">Back</v-btn>
 </v-row>
 <v-row>
    <v-col cols="12">
@@ -101,8 +109,9 @@
       </div>
       <!-- end of edit product custom modal  -->
       <div class="modal" v-show="dialog2">
-        <v-card width="800" height="600" class="text-center ma-auto scroll">
+        <v-card width="800" height="400" class="text-center ma-auto">
           <v-card-title class="headline grey lighten-2">Product Info</v-card-title>
+           <v-card width="800" height="600" class="scroll">
           <v-container>
                                        <v-form ref="form" v-model="productsForm" lazy-validation class="pa-4">
             <v-row>
@@ -168,17 +177,22 @@
             </v-row>
              </v-form>
           </v-container>
-
+    </v-card>
           <v-card-actions>
             <v-spacer></v-spacer>
+            <v-btn depressed color="blue darken--3 white--text" @click="dialog2 = false">Cancel</v-btn>
             <v-btn depressed color="teal darken--3 white--text" @click="dialog2 = false">Add</v-btn>
           </v-card-actions>
         </v-card>
+        <!--  
+
+
+        -->
       </div>
     </v-container>
     <v-container v-show="def == false">
 <v-row cols="12">
-         <v-btn color="matgreen white--text" @click="def = true" class="mr-8 ml-8 mt-4 mb-4"><v-icon color="white">mdi-arrow-left</v-icon> Back</v-btn>
+         <v-btn color="teal white--text" @click="def = true" class="mr-8 ml-8 mt-4 mb-4"><v-icon color="white">mdi-arrow-left</v-icon> Back</v-btn>
 </v-row>
 <v-row>
    <v-col cols="12">
@@ -257,14 +271,29 @@ export default {
     },
     initData() {
       let state = this.$store.state;
+      
       this.items = state.products;
+      
       this.categories = state.fullCategoryResponse;
+       console.log("ctgr vef")
+       const x = this.categories
+      console.log(x)
+
+      // for(let j = 0; j < this.categories.length; j++){
+      //  let f = -1;
+      //  for(let i = 0; i < this.items.length;i++){
+      //    if(this.items[i][0].indexOf(this.items[i][0].categoryId) == this.categories[j].categoryId){
+      //      this.categories[j].prodcts = this.items[i];
+      //      break;
+      //    }
+      //  }
+      // }
       console.log("ctgr")
-      console.log(this.items)
+      console.log(this.categories)
     },
-    seeMore(prods){
+    seeMore(prods,it){
       console.log("testing")
-      console.log(prods)
+      console.log(it)
     this.def = false;
     this.prd = prods;
     },
@@ -278,9 +307,14 @@ export default {
     },
     "$store.state.products": function () {
       this.items = this.$store.state.products;
+      console.log("state products")
+      console.log(this.items)
     },
     "$store.state.fullCategoryResponse": function () {
       this.categories = this.$store.state.fullCategoryResponse;
+      console.log("watr")
+      console.log(this.$store.state.fullCategoryResponse)
+      this.initData();
     },
   },
   mounted() {
@@ -289,6 +323,9 @@ export default {
 };
 </script>
 <style scoped>
+.product-card{
+  border: 1px solid #ddd;
+}
 .cursr {
   cursor: pointer;
 }
@@ -300,6 +337,10 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 5000;
+}
+.mdl{
+  position:relative;
+  top:5%;
 }
 .scroll{
   overflow-y: auto;

@@ -171,7 +171,7 @@ export default {
         )
         .then((r) => {
           console.log(r.data);
-          if (r.request.status == 200) {
+          if (r.status == 200) {
             ins.currentStore = r.data[0];
             console.log(r.data[0].storeName);
             ins.stores = r.data;
@@ -195,9 +195,10 @@ export default {
           headers: { Authorization: this.auth },
         })
         .then((response) => {
+          console.log("prof")
           console.log(response);
           // if (response.statusCode == 200) {
-          let d = response.data.body;
+          let d = response.data;
           self.$store.commit("setUserInfo", d);
           if (d.photoLink != "") {
             let al = d.photoLink;
@@ -219,14 +220,17 @@ export default {
       // api call
       axios
         .get(
-          `https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/category/?storeId=${this.$store.state.currentSelectedStore}`,
+          `https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/${this.$store.state.currentSelectedStore}/category`,
           { headers: { Authorization: this.auth } }
         )
         .then((r) => {
+           console.log("str");
+              console.log(r);
           //if status is ok, proceed
-          if (r.request.status == 200) {
+          if (r.status == 200) {
             // data from the response
             let data = r.data;
+            
             // some temp vars to store data
             let catArr = [],
               catNameArr = [],
@@ -237,6 +241,7 @@ export default {
             console.log("dkne")
             console.log(data)
             this.$store.commit("setFullCatRes", data);
+            console.log(this.$store.state.fullCategoryResponse)
             // putting each category id and name
             // in their respective local arr
             for (let c = 0; c < data.length; c++) {
@@ -253,28 +258,48 @@ export default {
             // for each category we call api
             // seperately to get data for
             //  respective categories
+
+            // temp var for current products data from api
+            let pd = [];
             for (let c = 0; c < catArr.length; c++) {
               axios
                 .get(
-                  `https://dokanee-backend-monolithic.herokuapp.com/dashboard/product?categoryId=${catArr[c]}&storeId=${this.$store.state.currentSelectedStore}`,
+                  `https://dokanee-backend-monolithic.herokuapp.com/dashboard/store/${this.$store.state.currentSelectedStore}/product?categoryId=${catArr[c]}`,
                   { headers: { Authorization: this.auth } }
                 )
                 .then((r) => {
-                  console.log(r.data);
+                  console.log(r);
                   //  if status ok
-                  if (r.data.statusCode == 200) {
-                    let pd = r.data.body;
+                  if (r.status == 200) {
+                    pd = r.data;
                     let x = pd[0].categoryId;
                     
                       pd[0].categoryName = catNameArr[catArr.indexOf(pd[0].categoryId)];
+                      // 
                     //  we store them in previously
                     //  created local array
+             
                     prodArr.push(pd);
+                      data[c].products = pd;
                   }
+                })
+                .catch((e)=> {
+                 // pd = [];
+                 console.log("err bef pd")
                 });
+            //      console.log("bef pd----")
+            //       console.log(pd)
+            //        if(pd.length != 0){
+            //           console.log("pd----")
+            // console.log(pd)
+            //   data[c].products = pd;
+            // }
             }
+         
             // then we again store then in vuex along with a flag
-            instance.$store.commit("setProducts", prodArr);
+            instance.$store.commit("setProducts", data);
+            console.log("full infos")
+            console.log(data)
             this.$store.commit("setProductsLoaded", true);
           }
         });

@@ -9,8 +9,14 @@
           max-height="1000"
           style="padding:2.5%; !important"
         >
-         
-        <span  v-show="!loadingResponse">
+          <v-progress-linear
+        :active="loadingResponse"
+        :indeterminate="loadingResponse"
+        absolute
+        top
+        color="matgreen"
+      ></v-progress-linear>
+        <span>
           <v-toolbar flat class="pa-0">
             <v-toolbar-title>
               <v-img
@@ -211,14 +217,14 @@
             </v-col>
           </v-row>
         </span>
-          <v-progress-circular
+          <!-- <v-progress-circular
           v-show="loadingResponse"
       :size="130"
       :width="11"
       color="pink"
       indeterminate
       align="center" justify="center"
-    ></v-progress-circular>
+    ></v-progress-circular> -->
         </v-card>
       </v-col>
     </v-row>

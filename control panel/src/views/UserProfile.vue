@@ -96,7 +96,7 @@
                                         
                                         <v-tabs
                                         v-model="tab"
-                                        background-color="matgreen accent-4"
+                                        background-color="teal accent-4"
                                         centered
                                         dark
                                         icon-text
