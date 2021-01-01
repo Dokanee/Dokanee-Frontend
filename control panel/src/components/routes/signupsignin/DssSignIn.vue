@@ -1,6 +1,16 @@
 <template>
   <v-container class="full-height" fluid>
-    
+    <v-snackbar
+      v-model="alert"
+      timeout=3000
+       absolute
+      center
+      rounded="pill" class="text-center"
+      top
+      color="red"
+    >
+      {{ apiResponse }}
+    </v-snackbar>
     <v-row style="margin-top:3%; vertical-align: middle; !important" align="center" justify="center">
       <v-col cols="12" sm="8" md="8">
         <v-card color="white" class="rounded-lg ma-auto " width="450" max-height="1000" style="padding:2.5%; !important">
@@ -66,32 +76,20 @@
         </v-card>
       </v-col>
     </v-row>
-     <!-- <v-dialog
-      v-model="dialog"
-      hide-overlay
-      persistent
-      width="300"
-      height="300"
-    >
-      <v-card
-        color="primary"
-        dark
-      >
-        <v-card-text>
-         Logging In
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog> -->
   </v-container>
 </template>
 <script>
 
-import auth from "@/auth/index.js"
+import axios from 'axios';
+const API_URL = 'https://dokanee-backend-monolithic.herokuapp.com/'
+const LOGIN_URL = API_URL + 'auth/signin/'
+const SIGNUP_URL = API_URL + 'auth/signup'
+
+const options = {
+    headers: {
+        'Content-Type': 'application/json',
+    }
+  };
 export default {
     data() {
     return {
@@ -99,6 +97,8 @@ export default {
       password: "",
       showPassword: false,
       dialog: false,
+        apiResponse: null,
+      alert: false,
       response: "",
        rules: {
           required: value => !!value || 'Required.',
@@ -123,11 +123,44 @@ export default {
          password: this.password
        }
         // setTimeout(() => {   
-            i.response = auth.login(signInData,this.redirect);
+            i.response = this.login(signInData,this.redirect);
             
         // }, 4000)
       }
     },
+    login(data, redirect) {
+    
+    axios.post(LOGIN_URL, data)
+    .then(response => {
+      console.log(response)
+      localStorage.setItem('id_token', response.id_token)
+      localStorage.setItem('access_token', response.data.accessToken)
+      localStorage.setItem("role",response.data.role)
+    
+      this.user.authenticated = true
+      console.log(localStorage)
+
+      // Redirect to a specified route
+      redirect();
+    })
+    .catch(err => {
+      console.log(err.response)
+      if (err.response.status === 401) {
+      // client received an error response (5xx, 4xx)
+     this.apiResponse = "Password or Email or Both didn't match!";
+      this.dialog = false;
+      this.alert = true;
+       
+    } else if (err.request) {
+      // client never received a response, or request never left
+    } else {
+      // anything else
+    }
+      throw err;
+    });
+
+    
+  },
     redirect(){
       this.$router.push("/cpanel/dashboard");
     }

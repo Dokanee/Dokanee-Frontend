@@ -35,7 +35,7 @@ export default {
       redirect();
     })
     .catch(err => {
-      return false;
+      console.log(err)
     });
      
   },

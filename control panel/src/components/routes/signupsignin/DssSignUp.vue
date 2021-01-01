@@ -1,5 +1,16 @@
 <template>
   <v-container class="full-height" fluid>
+    <v-snackbar
+      v-model="alert"
+      timeout=3000
+       absolute
+      center
+      rounded="pill" class="text-center"
+      top
+      :color=alertType
+    >
+      {{ apiResponse }}
+    </v-snackbar>
     <v-row  align="center" justify="center">
       <v-col cols="12" lg="12" md="8">
         <v-card
@@ -36,14 +47,14 @@
           </v-row>
           <v-row>
             <v-col cols="12" lg="7" md="7">
-              <v-form ref="form" v-model="valid" lazy-validation class="pa-4">
+              <v-form ref="form" lazy-validation class="pa-4">
                 <v-row>
                   <v-col class="pb-0 pt-0" cols="12" sm="6">
-                    <v-text-field dense v-model="formData.firstName" label="First Name" outlined></v-text-field>
+                    <v-text-field dense v-model="formData.firstName"  :rules="[rules.required, rules.counter]" required label="First Name" outlined></v-text-field>
                   </v-col>
 
                   <v-col class="pb-0 pt-0" cols="12" sm="6">
-                    <v-text-field dense v-model="formData.lastName" label="Last Name" outlined></v-text-field>
+                    <v-text-field dense v-model="formData.lastName" :rules="[rules.required, rules.counter]" required label="Last Name" outlined></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
@@ -84,7 +95,7 @@
                     <v-text-field
                       v-model="password2"
                       :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
-                      :rules="[rules.required, rules.counter]"
+                   :rules="[rules.required, rules.counter, (formData.password === password2) || 'Password must match']"
                       :type="showPassword2 ? 'text' : 'password'"
                       name="input-10-1"
                       label="Confirm"
@@ -150,8 +161,9 @@
             prepend-icon="mdi-calendar"
             readonly
             outlined
-                          required
-                          dense
+            :rules="[rules.required]" 
+            required
+            dense
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
@@ -182,7 +194,7 @@
                 </v-row>
                 <v-row>
                   <v-col class="pb-0 pt-0">
-                    <v-text-field dense outlined v-model="formData.address" label="Address"></v-text-field>
+                    <v-text-field dense outlined v-model="formData.address" :rules="[rules.required]" required label="Address"></v-text-field>
                   </v-col>
                 </v-row>
 
@@ -231,7 +243,17 @@
   </v-container>
 </template>
 <script>
-import auth from "@/auth/index.js"
+import axios from 'axios'
+//import apis from "@/auth/apis.js";
+const API_URL = 'https://dokanee-backend-monolithic.herokuapp.com/'
+const LOGIN_URL = API_URL + 'auth/signin/'
+const SIGNUP_URL = API_URL + 'auth/signup'
+
+const options = {
+    headers: {
+        'Content-Type': 'application/json',
+    }
+  };
 export default {
   data() {
     return {
@@ -241,6 +263,9 @@ export default {
       showPassword: false,
       showPassword2: false,
       datePickerMenu: false,
+      apiResponse: null,
+      alert: false,
+      alertType: "",
       password: "",
       password2: "",
       rules: {
@@ -271,6 +296,9 @@ export default {
     },
     showImage(){
       return this.windowWidth > 950;
+    },
+    passwordConfirmationRule() {
+      return () => (this.password === this.password2) || 'Password must match'
     }
   },
 
@@ -288,9 +316,39 @@ export default {
   methods: {
     submit(){
       console.log(this.formData)
+        let r =  this.$refs.form.validate();
+        if(r == true){
       this.loadingResponse = true;
-      auth.signup(JSON.stringify(this.formData));
+      this.signup(JSON.stringify(this.formData));
+        }
     },
+      signup(data) {
+    console.log(data);
+    axios.post(SIGNUP_URL, data, options)
+    .then(response => {
+      console.log(response)
+      if(response.status == 200){
+      if(response.data.massage != "OK") {
+        this.apiResponse = response.data.massage;
+        this.alertType  = "red";
+        this.alert = true;
+         this.loadingResponse = false;
+        }else{
+          this.apiResponse = "Account has been created successfully!";
+          this.alertType = "green"
+this.alert = true;
+         this.loadingResponse = false;
+
+      // localStorage.setItem('id_token', response.id_token)
+      // localStorage.setItem('access_token', response.data.accessToken)
+        }
+    }
+      // this.user.authenticated = true
+      // console.log(localStorage)
+    })
+     .catch(err => console.log(err.response));
+     
+  },
     formatDate(date) {
       if (!date) return null;
 

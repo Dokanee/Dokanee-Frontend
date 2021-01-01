@@ -125,7 +125,7 @@ Vue.use(VueRouter)
     ]
   },
   {
-    path: '/createstore',
+    path: '/createstore/:id',
     component: () =>
     import(/* webpackChunkName: "storecreate" */ '@/views/StoreCreate'),
 
