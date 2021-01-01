@@ -123,12 +123,12 @@ export default {
          password: this.password
        }
         // setTimeout(() => {   
-            i.response = this.login(signInData,this.redirect);
+            i.response = this.login(signInData);
             
         // }, 4000)
       }
     },
-    login(data, redirect) {
+    login(data) {
     
     axios.post(LOGIN_URL, data)
     .then(response => {
@@ -137,11 +137,11 @@ export default {
       localStorage.setItem('access_token', response.data.accessToken)
       localStorage.setItem("role",response.data.role)
     
-      this.user.authenticated = true
+      // this.user.authenticated = true
       console.log(localStorage)
 
       // Redirect to a specified route
-      redirect();
+      this.$router.push("/cpanel/dashboard");
     })
     .catch(err => {
       console.log(err.response)
@@ -156,7 +156,6 @@ export default {
     } else {
       // anything else
     }
-      throw err;
     });
 
     

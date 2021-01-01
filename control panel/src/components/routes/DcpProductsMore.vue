@@ -15,7 +15,7 @@
         >
           <template v-slot:top>
             <v-toolbar dark :elevation="1" flat rounded color="teal">
-              <v-toolbar-title color="white--text">{{productsData[0].categoryName}}</v-toolbar-title>
+              <v-toolbar-title color="white--text">{{productsData.categoryName}}</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
  <v-chip
       class="ma-2"
@@ -306,7 +306,7 @@ export default {
 
   methods: {
     initialize() {
-      this.prdcts = this.productsData;
+      this.prdcts = this.productsData.products;
     },
 
     editItem(item) {
